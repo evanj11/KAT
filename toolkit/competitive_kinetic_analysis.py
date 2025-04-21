@@ -53,21 +53,26 @@ def get_parser():
     return parser
 
 
-class MM_Kinetic_Solver:
+class Kinetic_Solver:
     """
     Kinetic_Solver( hill coefficient, v max value, km value)
     """
 
-    def __init__(self, vmax, km):
+    def __init__(self, ki, vmax, km):
+        self.ki = ki
         self.vmax = vmax
         self.km = km
         
-    def mm_equation(self, num, substrate):
+    def comp_inh_equation(self, num, substrate, num2, inhibitor, ki):
         vmax = self.vmax
         km = self.km
         self.num = num
+        self.num2 = num2
         self.substrate = substrate
-        eq1 = (vmax*(substrate[num]))/((km)+(substrate[num]))
+        self.inhibitor = inhibitor
+        self.ki = ki
+        a = 1 + (inhibitor[num2])/(ki)
+        eq1 = (vmax*(substrate[num]))/((a*km)+(substrate[num]))
         return eq1
 
     def square_sum(self, cal, dat):
@@ -76,43 +81,49 @@ class MM_Kinetic_Solver:
         eq2 = (x-y)**2
         return eq2
         
-    def sums(self, vmax, km, vvalues, substrate):
+    def sums(self, vmax, km, vvalues, substrate, num2, inhibitor, ki):
         self.vmax = vmax
         self.km = km
         self.vvalues = vvalues
         sums = []
         for i in range(len(vvalues)):
-            ks = MM_Kinetic_Solver(vmax, km)
-            s = ks.square_sum(vvalues[i], ks.mm_equation(i, substrate))
+            ks = Kinetic_Solver(float(1e-8), vmax, km)
+            s = ks.square_sum(vvalues[i], ks.comp_inh_equation(i, substrate, num2, inhibitor, ki))
             sums.append(s)
         value = sum(sums)
         return value
 
-    def full_equation(self, substrate, vvalues):
+    def full_equation(self, substrate, vvalues, num2, inhibitor):
         equation = 0
         self.substrate = substrate
         self.vvalues = vvalues 
+        self.inhibitor = inhibitor
+        self.num2 = num2
         for i in range(len(substrate)):
-            vmax, km = symbols('vmax km')
+            ki = symbols('ki')
+            vmax = self.vmax
+            km = self.km
+            inh = inhibitor[num2]
             sub = substrate[i]
             vval = vvalues[i]
-            eq1 = (vval - (vmax*(sub))/((km)+(sub)))**2
+            a = 1 + (inhibitor[num2])/(ki)
+            eq1 = (vval - (vmax*(sub))/(((a)*km)+(sub)))**2
             equation += eq1
         return equation
 
-    def partial_diff(self, equation):
-        vmax, km = symbols('vmax km')
-        f = equation
-        df_dvmax = diff(f, vmax)
-        df_dkm = diff(f, km)
-        return df_dvmax, df_dkm
+    #def partial_diff(self, equation):
+    #    ki, vmax, km = symbols('ki vmax km')
+    #    f = equation
+    #    df_dki = diff(f, ki)
+    #    df_dvmax = diff(f, vmax)
+    #    df_dkm = diff(f, km)
+    #    return df_dki, df_dvmax, df_dkm
 
-    def minimize(self, df_dvmax, df_dkm):
-        vmax, km = symbols('vmax km')
-        eq1 = df_dvmax
-        eq2 = df_dkm
-        sol = nsolve((eq1, eq2), (vmax, km), (self.vmax, self.km), prec=15, solver="bisect", verify=False)
-        return [sol[0], sol[1]]
+    def minimize(self, equation):
+        ki = symbols('ki')
+        eq1 = equation
+        sol = nsolve((eq1), (ki), (self.ki), prec=15, verify=False)
+        return sol
 
 class Import_Kinetic_Data:
     """
@@ -175,40 +186,43 @@ class get_inputs:
         self.lin_max = lin_max
         linregx = []
         linregy = []
-        for i in range(6,17):
+        for i in range(lin_min, lin_max):
             linregx.append(spx[i])
             linregy.append(spy[i])
         poly1d_fn = np.poly1d(np.polyfit(linregx, linregy, 1))
         return poly1d_fn, linregx
 
 class graph_kinetic_data:
-    def __init__(self, name, substrate, vvalues, vval_calc, kinetic_parameters, vv_std):
+    def __init__(self, name, substrate, vvalues, vval_calc, kinetic_parameters, inhibitor):
         self.name = name
         self.substrate = substrate
         self.vvalues = vvalues
         self.vval_calc = vval_calc
         self.kinetic_parameters = kinetic_parameters
-        self.vv_std = vv_std
+        self.inhibitor = inhibitor
 
-    def mm_graph(self):
+    def graph(self, linregx, poly1d_fn):
         substrate = self.substrate
         vvalues = self.vvalues
         vval_calc = self.vval_calc
         kinetic_parameters = self.kinetic_parameters
         vv_std = self.vv_std
+        self.linregx = linregx
+        self.poly1d_fn = poly1d_fn
         
         name = self.name
         fig, ax = plt.subplots(figsize=(4,3), dpi=250)
         plt.subplots_adjust(left=0.15, wspace=0.3, bottom=0.15)
-        ax.errorbar(substrate, vvalues, yerr=vv_std, fmt="*", color='blue', label="Data", markersize=6, elinewidth=1, capsize=1.5, barsabove=True)
-        ax.errorbar(substrate, vval_calc, fmt="o-", color='black', label="Calculated", markersize=2)
-        ax.set_ylabel("V\u2080")
-        ax.set_xlabel("[DHNP]")
-        ax.set_title("M-M Kinetic Plot")
+        ax.plot(linregx, poly1d_fn(linregx), '--k')
+        ax.plot(substrate, vvalues, ".", color='grey', markersize=4)
+        
+        ax.set_ylabel("Km/Vmax")
+        ax.set_xlabel("1/[I]")
+        ax.set_title("Competitive Inhibition Kinetic Plot")
         plt.savefig(f'{name}.png')
         return fig
 
-    def lineweaver_burk(self):
+    def inh_lineweaver_burk(self):
         substrate = self.substrate
         vvalues = self.vvalues
         vval_calc = self.vval_calc
@@ -231,8 +245,8 @@ class graph_kinetic_data:
         name = self.name
         fig, ax = plt.subplots(figsize=(4,3), dpi=250)
         plt.subplots_adjust(left=0.15, wspace=0.3, bottom=0.15)
-        ax.errorbar(lb_sub, lb_vv, yerr=lb_vv_std, fmt="*", color='blue', label="Data", markersize=6, elinewidth=1, capsize=1.5, barsabove=True)
-        ax.errorbar(lb_sub, lb_vvc, fmt="o-", color='black', label="Calculated", markersize=2)
+        for i in range(len(inhibitor)):
+            ax.plot(lb_sub, lb_vv, yerr=lb_vv_std, fmt="o-", color='blue', label=f"Inhibitor Conc.: {inhibitor[i]}", markersize=6)
         ax.set_ylabel("1/V\u2080")
         ax.set_xlabel("1/[DHNP]")
         ax.set_title("Lineweaver-Burk Plot")

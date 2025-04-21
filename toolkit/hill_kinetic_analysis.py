@@ -219,7 +219,7 @@ class get_inputs:
         self.lin_max = lin_max
         linregx = []
         linregy = []
-        for i in range(6,17):
+        for i in range(lin_min, lin_max):
             linregx.append(spx[i])
             linregy.append(spy[i])
         poly1d_fn = np.poly1d(np.polyfit(linregx, linregy, 1))

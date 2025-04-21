@@ -183,19 +183,22 @@ def graph_mm_best_fit():
 
 def disp_time_entry():
     root = ctk.CTk()
-    root.title("Substrate?")
+    root.title("Time-Course?")
     time_min = ctk.CTkEntry(root)
     time_min_label = ctk.CTkLabel(root, text="Minimum Time to Read Data (min)")
     time_min.grid(row=1, column=1, pady=10)
-    time_min_label.grid(row=2, column=1, pady=10)
+    time_min_label.grid(row=2, column=1, pady=10, padx=10)
     time_max = ctk.CTkEntry(root)
     time_max_label = ctk.CTkLabel(root, text="Maximum Time to Read Data (min)")
     time_max.grid(row=1, column=2, pady=10)
-    time_max_label.grid(row=2, column=2, pady=10)
+    time_max_label.grid(row=2, column=2, pady=10, padx=10)
     step = ctk.CTkEntry(root)
     step_label = ctk.CTkLabel(root, text="Time-Step to Compute Slopes")
     step.grid(row=1, column=3, pady=10)
-    step_label.grid(row=2, column=3, pady=10)
+    step_label.grid(row=2, column=3, pady=10, padx=10)
+    label = ctk.CTkLabel(root, text="*Difference in Max and Min time must be divisible by Time-Step*")
+    label.grid(row=3, column=1, columnspan=3, pady=10)
+    label.configure(text_color="red")
     def submit():
         data1 = time_min.get()
         min1.set(data1)
@@ -210,25 +213,41 @@ def disp_time_entry():
         print("Entry saved.")
         root.destroy()
     submit_btn = ctk.CTkButton(root, text="Submit", command=submit)
-    submit_btn.grid(row=3, column=2, pady=10)
+    submit_btn.grid(row=4, column=2, pady=10)
 
 def abs_flo():
     root = ctk.CTk()
     root.title("Absorbance or Fluorescence?")
     def absor():
-        dat_type.set("Absorbance")
-        with open("data_type.txt", "w") as f:
-            f.write("absorbance")
-        root.destroy()
+        dat_type.set("Absorbance \n")
+        root = ctk.CTk()
+        root.title("Name?")
+        entry = ctk.CTkEntry(root)
+        entry.grid(row=2, column=1, pady=10)
+        def submit():
+            data = entry.get()
+            molabs.set(data)
+            with open("data_type.txt", "w") as f:
+                f.write("absorbance\n")
+                f.write(f"{data}\n")
+            root.destroy()
+        submit_btn = ctk.CTkButton(root, text="Submit", command=submit)
+        submit_btn.grid(row=3, column=1, pady=10)
+        n_label = ctk.CTkLabel(root, text="Molar Absorptivity")
+        n_label.grid(row=1, column=1, pady=10)
     def fluo():
         dat_type.set("Fluorescence")
         with open("data_type.txt", "w") as f:
             f.write("fluorescence")
         root.destroy()
+    def ok():
+            root.destroy()
     absorb = ctk.CTkButton(root, text='Absorbance', command=absor)
     absorb.grid(row=2, column=1, pady=10, padx=20)
     fluor = ctk.CTkButton(root, text='Fluorescence', command=fluo)
     fluor.grid(row=2, column=2, pady=10, padx=20)
+    ok_btn = ctk.CTkButton(root, text="Ok", command=ok)
+    ok_btn.grid(row=3, column=1, pady=10, columnspan=2)
     n_label = ctk.CTkLabel(root, text="Are you using absorbance or fluorescence data?")
     n_label.grid(row=1, column=1, columnspan=2, pady=10)
 
@@ -239,7 +258,9 @@ def abs_flo():
 class ColumnSelectorApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Kinetic Analysis Tool (KAT)")
+        #self.root.title("Kinetic Analysis Tool (KAT)")
+        self.root.grid_rowconfigure(0, weight=1)
+        self.root.grid_columnconfigure(0, weight=1)
         self.columns = []
         for i in range(1,13):
             val = f"A{i}"
@@ -276,16 +297,22 @@ class ColumnSelectorApp:
             file.writelines(f"{item}\n" for item in self.selected_columns)
 
 
-# In[4]:
+# In[7]:
 
 
 ctk.set_appearance_mode("System")
-ctk.set_default_color_theme("blue")
+ctk.set_default_color_theme("dark-blue")
 
-window = ctk.CTk()
-window.state("normal")
-window.title("Kinetic Analysis Tool (KAT)")
-my_font = ctk.CTkFont(family="Times New Roman", size=11)
+screen = ctk.CTk()
+window = ctk.CTkFrame(master=screen)
+window.grid(row=0, column=0)
+
+#window = ctk.CTk()
+#window.state("normal")
+screen.title("Kinetic Analysis Tool (KAT)")
+window.grid_rowconfigure(0, weight=1)
+window.grid_columnconfigure(0, weight=1)
+my_font = ctk.CTkFont(family="Times New Roman", size=18)
 
 tabview = ctk.CTkTabview(window)
 tabview.add("Hill Kinetics")
@@ -293,16 +320,16 @@ tabview.add("Michelis-Menten Kinetics")
 tabview.add("Inhibition Kinetics")
 tabview.grid(column=13, row=1, rowspan=3, padx=20, pady=10)
 
-kat = Image.open("/home/evanj/Downloads/ChatGPT Image Apr 18, 2025, 12_39_18 PM.png")
+kat = Image.open("../.imgs/ChatGPT Image Apr 18, 2025, 12_39_18 PM.png")
 photo_cat = ctk.CTkImage(light_image=kat, size=(325,425))
 cat = ctk.CTkLabel(window, image=photo_cat, text="")
 cat.grid(row=11, column=13, rowspan=4, columnspan=5, pady=10)
-kat1 = Image.open("/home/evanj/Downloads/ChatGPT Image Apr 18, 2025, 12_39_18 PM.png")
+kat1 = Image.open("../.imgs/ChatGPT Image Apr 18, 2025, 12_39_18 PM.png")
 photo_cat1 = ctk.CTkImage(light_image=kat, size=(325,425))
 cat1 = ctk.CTkLabel(window, image=photo_cat, text="")
 cat1.grid(row=11, column=1, rowspan=1, columnspan=2, pady=10)
 
-gui_label = ctk.CTkLabel(window, anchor=ctk.W, text="Welcome to KAT, the Kinetic Analysis Toolkit! \n To generate a kinetic curve following either Hill or Michelis-Menten kinetics, follow these steps: \n 1. Create a .csv file with values for fluorescence or absorbance that follows [Time] [Temp] [Data]. \n 2. Give the output graph file a name. \n 3. Specify a path to the data in a .csv format. \n 4. Specify the kind of data you have collected (absorbance vs. fluorescence). \n 5. Input the information about the substrate concentrations used (must be serially diluted). \n 6. Input the information about the time-course to sample. \n 7. Select ")
+gui_label = ctk.CTkLabel(window, anchor=ctk.W, font=my_font, text="Welcome to KAT, the Kinetic Analysis Toolkit! \n To generate a kinetic curve following either Hill or Michelis-Menten kinetics, follow these steps: \n 1. Create a .csv file with values for fluorescence or absorbance that follows [Time] [Temp] [Data]. \n 2. Give the output graph file a name. \n 3. Specify a path to the data in a .csv format. \n 4. Specify the kind of data you have collected (absorbance vs. fluorescence). \n 5. Input the information about the substrate concentrations used (must be serially diluted). \n 6. Input the information about the time-course to sample. \n 7. Select the columns to read data from. \n 8. Click either *Graph Averages* or *Graph Best-Fit* for Hill or Michelis-Menten Kinetics. \n 9. Click *Display Graph* to open the graph output.")
 gui_label.grid(row=11, column=3, rowspan=1, columnspan=10, pady=10)
 
 run_button1 = ctk.CTkButton(tabview.tab("Hill Kinetics"), text="Graph Averages Hill", command=plot_with_inset)
@@ -354,6 +381,12 @@ dat_label.grid(row=6, column=2, pady=10)
 dat_label.configure(text_color="green")
 dat_labela = ctk.CTkLabel(window, text="Data Type")
 dat_labela.grid(row=5, column=2, pady=10)
+molabs = ctk.StringVar()
+molabs_label = ctk.CTkLabel(window, textvariable=molabs)
+molabs_label.grid(row=6, column=3, pady=10)
+molabs_label.configure(text_color="green")
+molabs_labela = ctk.CTkLabel(window, text="Molar Absorptivity")
+molabs_labela.grid(row=5, column=3, pady=10)
 
 sub_btn = ctk.CTkButton(window, text="Substrate Information", command=disp_substrate_entry)
 sub_btn.grid(row=8, column=1, pady=10, padx=10)
@@ -397,9 +430,10 @@ time_labelb.grid(row=9, column=3, pady=10)
 time_labelc = ctk.CTkLabel(window, text="Time-Step")
 time_labelc.grid(row=9, column=4, pady=10)
 
-
-# In[5]:
-
+window.update_idletasks()
+width = window.winfo_width()
+height = window.winfo_height()
+screen.geometry(f"{width}x{height}")
 
 window.mainloop()
 

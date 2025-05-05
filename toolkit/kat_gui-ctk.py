@@ -101,6 +101,7 @@ def graph_noncompetitive():
 def disp_name_entry():
     root = ctk.CTkToplevel()
     root.title("Name?")
+    root.wait_visibility()
     root.grab_set() 
     entry = ctk.CTkEntry(root)
     entry.grid(row=2, column=1, pady=10)
@@ -137,6 +138,7 @@ def disp_graph():
 def disp_substrate_entry():
     root = ctk.CTkToplevel()
     root.title("Substrate?")
+    root.wait_visibility()
     root.grab_set()
     dil_num = ctk.CTkEntry(root)
     dil_num_label = ctk.CTkLabel(root, text="Number of Substrate Conc.")
@@ -186,6 +188,7 @@ def graph_mm_best_fit():
 def disp_time_entry():
     root = ctk.CTkToplevel()
     root.title("Time-Course?")
+    root.wait_visibility()
     root.grab_set()
     time_min = ctk.CTkEntry(root)
     time_min_label = ctk.CTkLabel(root, text="Minimum Time to Read Data (min)")
@@ -221,11 +224,13 @@ def disp_time_entry():
 def abs_flo():
     root = ctk.CTkToplevel()
     root.title("Absorbance or Fluorescence?")
+    root.wait_visibility()
     root.grab_set()
     def absor():
         dat_type.set("Absorbance \n")
         root = ctk.CTkToplevel()
         root.title("Name?")
+        root.wait_visibility()
         root.grab_set()
         entry = ctk.CTkEntry(root)
         entry.grid(row=2, column=1, pady=10)

@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   width="159.884"
+   height="58.5"
+   viewBox="0 0 159.884 58.5"
+   id="svg170"
+   sodipodi:docname="hill.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview172"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.3868614"
+     inkscape:cx="341.05787"
+     inkscape:cy="-12.61842"
+     inkscape:window-width="1854"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg170" />
+  <defs
+     id="defs56">
+    <clipPath
+       id="clip_0">
+      <path
+         transform="matrix(1,0,0,-1,0,792)"
+         d="M 9.12e-6,0 H 612 V 792 H 9.12e-6 Z"
+         clip-rule="evenodd"
+         id="path2" />
+    </clipPath>
+    <clipPath
+       id="clip_1">
+      <path
+         transform="matrix(1,0,0,-1,0,792)"
+         d="M 9.12e-6,0 H 612 V 792 H 9.12e-6 Z"
+         clip-rule="evenodd"
+         id="path5" />
+    </clipPath>
+    <clipPath
+       id="clip_2">
+      <path
+         transform="matrix(1,0,0,-1,0,792)"
+         d="M 9.12e-6,0 H 612 V 792 H 9.12e-6 Z"
+         clip-rule="evenodd"
+         id="path8" />
+    </clipPath>
+    <clipPath
+       id="clip_3">
+      <path
+         transform="matrix(1,0,0,-1,0,792)"
+         d="M 9.12e-6,0 H 612 V 792 H 9.12e-6 Z"
+         clip-rule="evenodd"
+         id="path11" />
+    </clipPath>
+    <clipPath
+       id="clip_4">
+      <path
+         transform="matrix(1,0,0,-1,0,792)"
+         d="M 9.12e-6,0 H 612 V 792 H 9.12e-6 Z"
+         clip-rule="evenodd"
+         id="path14" />
+    </clipPath>
+    <clipPath
+       id="clip_5">
+      <path
+         transform="matrix(1,0,0,-1,0,792)"
+         d="M 9.12e-6,0 H 612 V 792 H 9.12e-6 Z"
+         clip-rule="evenodd"
+         id="path17" />
+    </clipPath>
+    <clipPath
+       id="clip_6">
+      <path
+         transform="matrix(1,0,0,-1,0,792)"
+         d="M 9.12e-6,0 H 612 V 792 H 9.12e-6 Z"
+         clip-rule="evenodd"
+         id="path20" />
+    </clipPath>
+    <clipPath
+       id="clip_7">
+      <path
+         transform="matrix(1,0,0,-1,0,792)"
+         d="M 9.12e-6,0 H 612 V 792 H 9.12e-6 Z"
+         clip-rule="evenodd"
+         id="path23" />
+    </clipPath>
+    <clipPath
+       id="clip_8">
+      <path
+         transform="matrix(1,0,0,-1,0,792)"
+         d="M 9.12e-6,0 H 612 V 792 H 9.12e-6 Z"
+         clip-rule="evenodd"
+         id="path26" />
+    </clipPath>
+    <clipPath
+       id="clip_9">
+      <path
+         transform="matrix(1,0,0,-1,0,792)"
+         d="M 9.12e-6,0 H 612 V 792 H 9.12e-6 Z"
+         clip-rule="evenodd"
+         id="path29" />
+    </clipPath>
+    <clipPath
+       id="clip_10">
+      <path
+         transform="matrix(1,0,0,-1,0,792)"
+         d="M 9.12e-6,0 H 612 V 792 H 9.12e-6 Z"
+         clip-rule="evenodd"
+         id="path32" />
+    </clipPath>
+    <clipPath
+       id="clip_11">
+      <path
+         transform="matrix(1,0,0,-1,0,792)"
+         d="M 9.12e-6,0 H 612 V 792 H 9.12e-6 Z"
+         clip-rule="evenodd"
+         id="path35" />
+    </clipPath>
+    <clipPath
+       id="clip_12">
+      <path
+         transform="matrix(1,0,0,-1,0,792)"
+         d="M 9.12e-6,0 H 612 V 792 H 9.12e-6 Z"
+         clip-rule="evenodd"
+         id="path38" />
+    </clipPath>
+    <clipPath
+       id="clip_13">
+      <path
+         transform="matrix(1,0,0,-1,0,792)"
+         d="M 9.12e-6,0 H 612 V 792 H 9.12e-6 Z"
+         clip-rule="evenodd"
+         id="path41" />
+    </clipPath>
+    <clipPath
+       id="clip_14">
+      <path
+         transform="matrix(1,0,0,-1,0,792)"
+         d="M 9.12e-6,0 H 612 V 792 H 9.12e-6 Z"
+         clip-rule="evenodd"
+         id="path44" />
+    </clipPath>
+    <clipPath
+       id="clip_15">
+      <path
+         transform="matrix(1,0,0,-1,0,792)"
+         d="M 9.12e-6,0 H 612 V 792 H 9.12e-6 Z"
+         clip-rule="evenodd"
+         id="path47" />
+    </clipPath>
+    <clipPath
+       id="clip_16">
+      <path
+         transform="matrix(1,0,0,-1,0,792)"
+         d="M 9.12e-6,0 H 612 V 792 H 9.12e-6 Z"
+         clip-rule="evenodd"
+         id="path50" />
+    </clipPath>
+    <clipPath
+       id="clip_17">
+      <path
+         transform="matrix(1,0,0,-1,0,792)"
+         d="M 9.12e-6,0 H 612 V 792 H 9.12e-6 Z"
+         clip-rule="evenodd"
+         id="path53" />
+    </clipPath>
+  </defs>
+  <g
+     id="g168"
+     transform="translate(-226.43601,-75)">
+    <g
+       clip-path="url(#clip_0)"
+       id="g62">
+      <text
+         xml:space="preserve"
+         transform="translate(0,792)"
+         font-size="24px"
+         font-family="CambriaMath"
+         id="text60"><tspan
+           y="-680.82001"
+           x="225.74001"
+           id="tspan58">𝑣</tspan></text>
+    </g>
+    <g
+       clip-path="url(#clip_1)"
+       id="g68">
+      <text
+         xml:space="preserve"
+         transform="translate(0,792)"
+         font-size="24px"
+         font-family="CambriaMath"
+         id="text66"><tspan
+           y="-680.82001"
+           x="246.14"
+           id="tspan64">=</tspan></text>
+    </g>
+    <g
+       clip-path="url(#clip_2)"
+       id="g74">
+      <text
+         xml:space="preserve"
+         transform="translate(0,792)"
+         font-size="24px"
+         font-family="CambriaMath"
+         id="text72"><tspan
+           y="-699"
+           x="281.66"
+           id="tspan70">𝑉</tspan></text>
+    </g>
+    <g
+       clip-path="url(#clip_3)"
+       id="g80">
+      <text
+         xml:space="preserve"
+         transform="translate(0,792)"
+         font-size="17.52px"
+         font-family="CambriaMath"
+         id="text78"><tspan
+           y="-694.08002"
+           x="291.01999 307.2435 316.91455"
+           id="tspan76">max</tspan></text>
+    </g>
+    <g
+       clip-path="url(#clip_4)"
+       id="g86">
+      <text
+         xml:space="preserve"
+         transform="translate(0,792)"
+         font-size="24px"
+         font-family="CambriaMath"
+         id="text84"><tspan
+           y="-699"
+           x="327.51999"
+           id="tspan82"> </tspan></text>
+    </g>
+    <g
+       clip-path="url(#clip_5)"
+       id="g92">
+      <text
+         xml:space="preserve"
+         transform="translate(0,792)"
+         font-size="24px"
+         font-family="CambriaMath"
+         id="text90"><tspan
+           y="-699"
+           x="332.79999"
+           id="tspan88">[</tspan></text>
+    </g>
+    <g
+       clip-path="url(#clip_6)"
+       id="g98">
+      <text
+         xml:space="preserve"
+         transform="translate(0,792)"
+         font-size="24px"
+         font-family="CambriaMath"
+         id="text96"><tspan
+           y="-699"
+           x="341.20001"
+           id="tspan94">𝑆</tspan></text>
+    </g>
+    <g
+       clip-path="url(#clip_7)"
+       id="g104">
+      <text
+         xml:space="preserve"
+         transform="translate(0,792)"
+         font-size="24px"
+         font-family="CambriaMath"
+         id="text102"><tspan
+           y="-699"
+           x="354.34"
+           id="tspan100">]</tspan></text>
+    </g>
+    <g
+       clip-path="url(#clip_8)"
+       id="g110">
+      <text
+         xml:space="preserve"
+         transform="translate(0,792)"
+         font-size="17.52px"
+         font-family="CambriaMath"
+         id="text108"><tspan
+           y="-707.76001"
+           x="362.73999"
+           id="tspan106">𝑛</tspan></text>
+    </g>
+    <g
+       clip-path="url(#clip_9)"
+       id="g116">
+      <text
+         xml:space="preserve"
+         transform="translate(0,792)"
+         font-size="24px"
+         font-family="CambriaMath"
+         id="text114"><tspan
+           y="-664.5"
+           x="270.73999"
+           id="tspan112">𝐾</tspan></text>
+    </g>
+    <g
+       clip-path="url(#clip_10)"
+       id="g122">
+      <text
+         xml:space="preserve"
+         transform="translate(0,792)"
+         font-size="17.52px"
+         font-family="CambriaMath"
+         id="text120"><tspan
+           y="-659.56"
+           x="285.56"
+           id="tspan118">𝑀</tspan></text>
+    </g>
+    <g
+       clip-path="url(#clip_11)"
+       id="g128">
+      <text
+         xml:space="preserve"
+         transform="translate(0,792)"
+         font-size="17.52px"
+         font-family="CambriaMath"
+         id="text126"><tspan
+           y="-675.12"
+           x="302.42001"
+           id="tspan124">𝑛</tspan></text>
+    </g>
+    <g
+       clip-path="url(#clip_12)"
+       id="g134">
+      <text
+         xml:space="preserve"
+         transform="translate(0,792)"
+         font-size="24px"
+         font-family="CambriaMath"
+         id="text132"><tspan
+           y="-664.5"
+           x="320.44"
+           id="tspan130">+</tspan></text>
+    </g>
+    <g
+       clip-path="url(#clip_13)"
+       id="g140">
+      <text
+         xml:space="preserve"
+         transform="translate(0,792)"
+         font-size="24px"
+         font-family="CambriaMath"
+         id="text138"><tspan
+           y="-664.5"
+           x="343.66"
+           id="tspan136">[</tspan></text>
+    </g>
+    <g
+       clip-path="url(#clip_14)"
+       id="g146">
+      <text
+         xml:space="preserve"
+         transform="translate(0,792)"
+         font-size="24px"
+         font-family="CambriaMath"
+         id="text144"><tspan
+           y="-664.5"
+           x="352.12"
+           id="tspan142">𝑆</tspan></text>
+    </g>
+    <g
+       clip-path="url(#clip_15)"
+       id="g152">
+      <text
+         xml:space="preserve"
+         transform="translate(0,792)"
+         font-size="24px"
+         font-family="CambriaMath"
+         id="text150"><tspan
+           y="-664.5"
+           x="365.26001"
+           id="tspan148">]</tspan></text>
+    </g>
+    <g
+       clip-path="url(#clip_16)"
+       id="g158">
+      <text
+         xml:space="preserve"
+         transform="translate(0,792)"
+         font-size="17.52px"
+         font-family="CambriaMath"
+         id="text156"><tspan
+           y="-671.70001"
+           x="373.66"
+           id="tspan154">𝑛</tspan></text>
+    </g>
+    <path
+       transform="matrix(1,0,0,-1,0,792)"
+       d="m 270.74,686.88 h 115.58 v 1.56 H 270.74 Z"
+       fill-rule="evenodd"
+       id="path160" />
+    <g
+       clip-path="url(#clip_17)"
+       id="g166">
+      <text
+         xml:space="preserve"
+         transform="translate(0,792)"
+         font-size="24px"
+         font-family="Aptos"
+         id="text164"><tspan
+           y="-680.82001"
+           x="386.32001"
+           id="tspan162"> </tspan></text>
+    </g>
+  </g>
+</svg>

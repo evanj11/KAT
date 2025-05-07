@@ -33,7 +33,9 @@ def graph_hill_averages_noinset():
         print("Script not found, Please check the path.")
 
 def plot_with_inset():
-    root = ctk.CTk()
+    root = ctk.CTkToplevel()
+    root.wait_visibility()
+    root.grab_set()
     root.title("Inset Plot?")
     yes = ctk.CTkButton(root, text='Yes', command=graph_hill_averages_winset)
     yes.grid(row=2, column=1, pady=10, padx=20)
@@ -170,7 +172,7 @@ def disp_substrate_entry():
 
 def graph_hill_best_fit():
     try:
-        subprocess.run(['python', 'hill-best_fit.py'], check=True)
+        subprocess.run(['python', 'kat/scripts/hill-best_fit.py'], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error running script: {e}")
     except FileNotFoundError:
@@ -178,7 +180,7 @@ def graph_hill_best_fit():
 
 def graph_mm_best_fit():
     try:
-        subprocess.run(['python', 'mm-best_fit.py'], check=True)
+        subprocess.run(['python', 'kat/scripts/mm-best_fit.py'], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error running script: {e}")
     except FileNotFoundError:

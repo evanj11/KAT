@@ -31,8 +31,8 @@ data = Import_Kinetic_Data(path[0], substrate)
 
 with open('column_data.txt', 'r') as file:
     lines = [line.strip() for line in file.readlines()]
-    line_1 = int(lines[0])+3
-    line_2 = int(lines[1])+3
+    line_1 = int(lines[0])+2
+    line_2 = int(lines[1])+2
     columns = [line_1, line_2]
     print(columns)
 

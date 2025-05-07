@@ -18,7 +18,7 @@ import os
 
 def graph_hill_averages_winset():
     try:
-        subprocess.run(['python', '../scripts/hill-averages_winset.py'], check=True)
+        subprocess.run(['python', 'kat/scripts/hill-averages_winset.py'], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error running script: {e}")
     except FileNotFoundError:
@@ -26,7 +26,7 @@ def graph_hill_averages_winset():
 
 def graph_hill_averages_noinset():
     try:
-        subprocess.run(['python', '../scripts/hill-averages_noinset.py'], check=True)
+        subprocess.run(['python', 'kat/scripts/hill-averages_noinset.py'], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error running script: {e}")
     except FileNotFoundError:
@@ -48,7 +48,7 @@ def plot_with_inset():
 
 def graph_mm_averages():
     try:
-        subprocess.run(['python', '../scripts/mm-averages.py'], check=True)
+        subprocess.run(['python', 'kat/scripts/mm-averages.py'], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error running script: {e}")
     except FileNotFoundError:
@@ -57,14 +57,14 @@ def graph_mm_averages():
 def graph_competitive():
     def comp_aver():
         try:
-            subprocess.run(['python', '../scripts/comp-averages.py'], check=True)
+            subprocess.run(['python', 'kat/scripts/comp-averages.py'], check=True)
         except subprocess.CalledProcessError as e:
             print(f"Error running script: {e}")
         except FileNotFoundError:
             print("Script not found, Please check the path.")
     def comp_bf():
         try:
-            subprocess.run(['python', '../scripts/comp-best_fit.py'], check=True)
+            subprocess.run(['python', 'kat/scripts/comp-best_fit.py'], check=True)
         except subprocess.CalledProcessError as e:
             print(f"Error running script: {e}")
         except FileNotFoundError:
@@ -84,7 +84,7 @@ def graph_competitive():
 
 def graph_uncompetitive():
     try:
-        subprocess.run(['python', '../scritps/hill-averages_winset.py'], check=True)
+        subprocess.run(['python', 'kat/scritps/hill-averages_winset.py'], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error running script: {e}")
     except FileNotFoundError:
@@ -92,7 +92,7 @@ def graph_uncompetitive():
 
 def graph_noncompetitive():
     try:
-        subprocess.run(['python', '../scripts/hill-averages_winset.py'], check=True)
+        subprocess.run(['python', 'kat/scripts/hill-averages_winset.py'], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error running script: {e}")
     except FileNotFoundError:

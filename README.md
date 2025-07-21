@@ -47,7 +47,12 @@ ___
 
 ## Using KAT
 
+Once `KAT` is installed, operating was designed to be as straightforward as possible:
 
+1. Enter a name for the outputted graphs and parameter information in the `Output Filename` block
+2. Upload the data CSV file and the blank CSV file (if present)
+3. Select the folder in which you wish to save the outputted data
+4. 
 
 ___
 ## Testing

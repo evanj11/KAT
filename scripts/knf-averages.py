@@ -283,9 +283,9 @@ def main():
         file.write("\n")
         file.write('Minimized residual sum of squares: ' + str(errors_mean))
         file.write("\n\n")
-        for names, low, high in zip(param_names, ci_lower, ci_upper):
-            file.write(f"{names}: 99% CI = [{low:.3f}, {high:.3f}]\n")
         if len(substrate) < 30:
+            for names, low, high in zip(param_names, ci_lower, ci_upper):
+                file.write(f"{names}: 99% CI = [{low:.3f}, {high:.3f}]\n")
             if 'False' in within_ci:
                 file.write('\n')
                 file.write('There is a high possibility for overfitting, use Cross-Validation values')

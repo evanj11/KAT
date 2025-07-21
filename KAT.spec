@@ -5,7 +5,8 @@ hiddenimports = (
     collect_submodules('scipy') +
     collect_submodules('sympy') +
     collect_submodules('pandas') +
-    collect_submodules('matplotlib')
+    collect_submodules('matplotlib') +
+    collect_submodules('scikit-learn')
 )
 
 a = Analysis(

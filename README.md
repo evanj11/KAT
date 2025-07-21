@@ -1,7 +1,7 @@
 # Kinetic Analysis Toolkit (KAT)
 
 `KAT` is a Python-based graphical user interface (GUI) application for analyzing enzyme kinetic data. It supports both classical models( **Michaelis-Menten** and **Hill** 
-models) and complex models (**Monod-Wyman-Changeux** and **Koshland-Nemethy-Filmer** models), outputting kinetic parameters (*e.g.* *K~M~*, *V~max~*, and *k~cat~* for Michaelis-Menten) along 
+models) and complex models (**Monod-Wyman-Changeux** and **Koshland-Nemethy-Filmer** models), outputting kinetic parameters (*e.g.* *K<sub>M</sub>*, *V<sub>max</sub>*, and *k<sub>cat</sub>* for Michaelis-Menten) along 
 with visual plots of your data. KAT is designed for experimental scientists who want a quick, user-friendly tool to interpret enzyme kinetics from absorbance or fluorescence 
 data stored in CSV files.
 
@@ -14,7 +14,7 @@ data stored in CSV files.
 - Can accept both replica and mutant data, treating each differently depending on the application
 - Supports **Michaelis-Menten**, **Hill**, **Monod-Wyman-Changeux**, and **Koshland-Nemethy-Filmer** kinetic models
 - Outputs:
-  - Kinetic parameters based on the model chosen including, *V~max~*, *K~M~*, *n*, and many others for complex models
+  - Kinetic parameters based on the model chosen including, *V<sub>max</sub>*, *K<sub>M</sub>*, *n*, and many others for complex models
 - Automatically fits nonlinear models using SciPy and Sympy
 - Displays graph chosen model
 - Export plot as PNG and SVG and parameters to .txt files

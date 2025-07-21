@@ -40,6 +40,8 @@ data stored in CSV files.
 3. On MacOS, use the disk image to install KAT directly to Applications
 
 - Anyone desiring to make changes to the either the GUI or analysis scripts can rebundle the app directly using `pyinstaller KAT.spec`
+- Those wishing to run KAT outside of a dedicated GUI can run `python main.py` in the master directory to access the GUI
+- Currently, there is not an option to run the script from the command line
 
 ___
 

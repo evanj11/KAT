@@ -17,7 +17,7 @@ data stored in CSV files.
   - Kinetic parameters based on the model chosen including, *V<sub>max</sub>*, *K<sub>M</sub>*, *n*, and many others for complex models
 - Automatically fits nonlinear models using SciPy and Sympy
 - Displays graph chosen model
-- Export plot as PNG and SVG and parameters to .txt files
+- Export plot as both PNG and SVG and parameters to .txt files
 
 ---
 
@@ -35,12 +35,12 @@ data stored in CSV files.
 
 ### Installation Instructions
 
-1. Download the appropriate KAT_{os}.tar.bz2 file
+1. Download the appropriate KAT_{os}.tar.bz2 file from `Releases`
 2. Untar the release and the pre-bundled KAT application should be ready for use
 3. On MacOS, use the disk image to install KAT directly to Applications
 
 - Anyone desiring to make changes to the either the GUI or analysis scripts can rebundle the app directly using `pyinstaller KAT.spec`
-- Those wishing to run KAT outside of a dedicated GUI can run `python main.py` in the master directory to access the GUI
+- Those wishing to run KAT outside of a dedicated app can run `python main.py` in the master directory to access the GUI
 - Currently, there is not an option to run the analysis from the command line without the use of the GUI
 
 ___

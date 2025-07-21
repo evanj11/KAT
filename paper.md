@@ -42,7 +42,7 @@ replicas and experiments.
 
 `KAT` is a toolkit dedicated to parsing both fluorescent and absorbance kinetic 
 data and fitting the data to several classical (Michaelis-Menten and Hill)
-[@johnson:2011; goutelle:2008] and complex (Monod-Wyman-Changeux and Koshland-Nemethy-Filmer)
+[@johnson:2011; @goutelle:2008] and complex (Monod-Wyman-Changeux and Koshland-Nemethy-Filmer)
 [@monod:1965; @koshland:1966] models. Each of these models can also be used to analyze either
 replicate data or data arising from several mutations. These replica fitting
 functions output either averages and standard deviations for each kinetic 
@@ -54,14 +54,14 @@ calculate the velocity data. There is a built-in function to auto calculate the
 linear range of the assay data, which is a necessary parameter for many kinetic
 models. This is calculated through analysis of subsequent slope values and only
 beginning data analysis once the difference in slopes is less than 5% on average.
-Once the user has provided the necessary data, he can easily fit the data to 
+Once the user has provided the necessary data, s/he can easily fit the data to 
 multiple models, allowing for the comparison of fits and kinetic parameters.
 
 While many other tools effective fit Michaelis-Menten kinetics to a data set, 
 fewer fit data to the non-linear form of the Hill Equation, which adds the extra
 Hill coefficient parameter. Further, software like EnzFitter do not have complex
 models built-in, requiring the user to input complex algebraic equations by hand.
-[@leatherbarrow:1988]`KAT` already has these models integrated and directly outputs 
+[@leatherbarrow:1988] `KAT` already has these models integrated and directly outputs 
 easily-modifiable SVG graphs, as well as typical PNG-formatted graphs. For the 
 classical models, the kinetic parameters are conviently displayed upon completing 
 the calculation whereas the complex models display each parameter in a pop-up window.
@@ -83,8 +83,8 @@ standardize the fitting of data to both classical and complex kinetic models.
 # Mathematical Basis
 ## Kinetic Models
 ### *Classical*
-Based on the simple model of an enzyme existing in three discreet states, the Michaelis-
-Menten equation identifies a *V~max~* and a *K~M~* that difine the maximum velocity and 
+Based on the simple model of an enzyme existing in three discreet states, the Michaelis-Menten 
+equation identifies a *V~max~* and a *K~M~* that difine the maximum velocity and 
 the Michaelis constant, which correlates to binding affinity between substrate and 
 enzyme, respectively.[@johnson:2011] The Micaelis-Menten equation assumes that the three 
 states are discreet and independent. 
@@ -100,7 +100,7 @@ complete Michaelis-Menten equation, where [S] is the substrate concentration.
 v = \frac{V_{max}[S]}{K_{M}+[S]}
 \end{equation}
 
-The Hill equation is a simple extension of the Michaelis-Menten equation that accounts for
+The Hill equation is an extension of the Michaelis-Menten equation that accounts for
 positive coopertivity, which is often the result of allostery within the enzyme and
 is the effect where binding of one substrate molecule accelerates the binding of another.
 The Hill coefficient, or n, is a measure of the coopertivity, where values greater than 1

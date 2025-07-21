@@ -50,17 +50,12 @@ Once `KAT` is installed, operating was designed to be as straightforward as poss
 1. Enter a name for the outputted graphs and parameter information in the `Output Filename` block
 2. Upload the data CSV file and the blank CSV file (if present)
    - Make sure data is formatted like the following
-     +-------------------+-------------+----------+----------+
-     | Time Data         | Temperature | Max Sub. | Next Sub.|
-     |  HH:MM:SS         |             | Data #1  | Data #2  |
-     +:=================:+:===========:+:========:+:========:+
-     | 00:00:00          |             | raw kinetics data   |
-     +-------------------+-------------+----------+----------+
-     | 00:01:00          |             | raw kinetics data   |
-     +-------------------+-------------+---------------------+
-     +===================+=============+=====================+
-     | And so forth                                          |
-     +===================+=============+=====================+
+     | Time Data | Temperature | Max Sub. | Next Sub.|
+     | :---: | :---: | :---: | :---: |
+     | 00:00:00 |  29C  | raw data   | raw data |
+     | 00:01:00 |  29C  | raw data   | raw data |
+     | ... | ... | ... | ... |
+
 4. Select the folder in which you wish to save the outputted data
 5. Enter either fluorescence or absorbance from the dropdown menu
    - if absorbance, an additional window will appear where you can input your molar absorptivity 

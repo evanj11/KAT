@@ -49,14 +49,26 @@ Once `KAT` is installed, operating was designed to be as straightforward as poss
 
 1. Enter a name for the outputted graphs and parameter information in the `Output Filename` block
 2. Upload the data CSV file and the blank CSV file (if present)
-3. Select the folder in which you wish to save the outputted data
-4. Enter either fluorescence or absorbance from the dropdown menu
+   - Make sure data is formatted like the following
+     +-------------------+-------------+----------+----------+
+     | Time Data         | Temperature | Max Sub. | Next Sub.|
+     |  HH:MM:SS         |             | Data #1  | Data #2  |
+     +:=================:+:===========:+:========:+:========:+
+     | 00:00:00          |             | raw kinetics data   |
+     +-------------------+-------------+----------+----------+
+     | 00:01:00          |             | raw kinetics data   |
+     +-------------------+-------------+---------------------+
+     +===================+=============+=====================+
+     | And so forth                                          |
+     +===================+=============+=====================+
+4. Select the folder in which you wish to save the outputted data
+5. Enter either fluorescence or absorbance from the dropdown menu
    - if absorbance, an additional window will appear where you can input your molar absorptivity 
-5. Enter information about the substrate: number of dilutions, dilution factor, and maximum concentration
-6. Enter time information, mainly the window with which to compute slopes (default is 10)
+6. Enter information about the substrate: number of dilutions, dilution factor, and maximum concentration
+7. Enter time information, mainly the window with which to compute slopes (default is 10)
    - if you desire, uncheck the `Auto Calculate Linear Range` button to manually select linear range of raw data
-7. Finally, select your model it will run!
-8. You can now open the graph and kinetic parameters by selecting `Display Graph and Output Values`
+8. Finally, select your model it will run!
+9. You can now open the graph and kinetic parameters by selecting `Display Graph and Output Values`
 ___
 ## Testing
 

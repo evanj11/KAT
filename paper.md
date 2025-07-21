@@ -189,7 +189,7 @@ loss function (defined similarly as above in (6) and (7)). The minimization is b
 typical biological constraints, where *V~T~*, *V~R~*, *K~T~*, and *K~R~* and bound between
 0 and 1,000, *L~0~* is bound between 0.001 and 500, and *N* is bound between 0.5 and 14 for
 the Monod-Wyman-Changeux equation. Similarly for the Koshland-Nemethy-Filmer model, *V~max~*,
-*K~d~*, and *k~basal~* are bound between 0 and 10,000 and \gamma is bound between -50 and 50.
+*K~d~*, and *k~basal~* are bound between 0 and 10,000 and $\gamma$ is bound between -50 and 50.
 Due to the unstable structure of fitting relatively few data points to complex models, 
 `scipy.optimize.differential_evolution` is first used to help identify global minima.
 [@virtanen:2020]

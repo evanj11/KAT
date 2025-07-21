@@ -37,9 +37,9 @@ data stored in CSV files.
 
 ### Installation Instructions
 
-Download the appropriate KAT_{os}.tar.bz2 file
-Untar the release and the pre-bundled KAT application should be ready for use
-On MacOS, use the disk image to install KAT directly to Applications
+1. Download the appropriate KAT_{os}.tar.bz2 file
+2. Untar the release and the pre-bundled KAT application should be ready for use
+3. On MacOS, use the disk image to install KAT directly to Applications
 
 - Anyone desiring to make changes to the either the GUI or analysis scripts can rebundle the app directly using `pyinstaller KAT.spec`
 
@@ -64,5 +64,5 @@ ___
 
 Simulated enzyme data is provided in the `tests` folder, along with information regarding substrate concentrations
 Simply download the CSV file, then start KAT, following the steps above
-The file named `important_information.txt` in teh `tests` folder contains information regarding the substrate concentrations.
+The file named `important_information.txt` in the `tests` folder contains information regarding the substrate concentrations.
 

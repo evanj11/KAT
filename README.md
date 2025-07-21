@@ -68,7 +68,7 @@ Once `KAT` is installed, operating was designed to be as straightforward as poss
 ___
 ## Testing
 
-Simulated enzyme data is provided in the `tests` folder, along with information regarding substrate concentrations
-Simply download the CSV file, then start KAT, following the steps above
+Simulated enzyme data is provided in the `tests` folder, along with information regarding substrate concentrations.
+Simply download the CSV file, then start KAT, following the steps above. 
 The file named `important_information.txt` in the `tests` folder contains information regarding the substrate concentrations.
 

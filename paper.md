@@ -57,7 +57,7 @@ beginning data analysis once the difference in slopes is less than 5% on average
 Once the user has provided the necessary data, s/he can easily fit the data to 
 multiple models, allowing for the comparison of fits and kinetic parameters.
 
-While many other tools effective fit Michaelis-Menten kinetics to a data set, 
+While many other tools effectively fit Michaelis-Menten kinetics to a data set, 
 fewer fit data to the non-linear form of the Hill Equation, which adds the extra
 Hill coefficient parameter. Further, software like EnzFitter do not have complex
 models built-in, requiring the user to input complex algebraic equations by hand.

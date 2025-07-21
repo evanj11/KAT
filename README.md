@@ -41,7 +41,7 @@ data stored in CSV files.
 
 - Anyone desiring to make changes to the either the GUI or analysis scripts can rebundle the app directly using `pyinstaller KAT.spec`
 - Those wishing to run KAT outside of a dedicated GUI can run `python main.py` in the master directory to access the GUI
-- Currently, there is not an option to run the script from the command line
+- Currently, there is not an option to run the analysis from the command line without the use of the GUI
 
 ___
 

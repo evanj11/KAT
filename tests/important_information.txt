@@ -1,0 +1,9 @@
+Substrate Information
+
+# of substrate concentrations: 12
+Dilution factor: 2
+Max substrate concentration: 80
+
+Enzyme concentration: 12.5
+
+For "Computed Velocity Window": use between 5 and 15

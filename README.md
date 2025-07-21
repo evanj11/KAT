@@ -53,11 +53,11 @@ Once `KAT` is installed, operating was designed to be as straightforward as poss
 2. Upload the data CSV file and the blank CSV file (if present)
    - Make sure data is formatted like the following:
   
-     | Time Data | Temperature | Max Sub. | Next Sub.|
-     | :---: | :---: | :---: | :---: |
-     | 00:00:00 |  29C  | raw data   | raw data |
-     | 00:01:00 |  29C  | raw data   | raw data |
-     | ... | ... | ... | ... |
+     | Time Data | Temperature | Max Substrate | Next Subsubstrate | ... |
+     | :---: | :---: | :---: | :---: | :---: |
+     | 00:00:00 |  29C  | raw data   | raw data | ... |
+     | 00:01:00 |  29C  | raw data   | raw data | ... |
+     | ... | ... | ... | ... | ... |
 
 4. Select the folder in which you wish to save the outputted data
 5. Enter either fluorescence or absorbance from the dropdown menu

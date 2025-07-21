@@ -145,7 +145,7 @@ v = \frac{E_{total}\sum_{i=0}^{j} k_{i} \binom{j}{i} (\frac{[S]}{K_{d}})^i}{\sum
 \end{equation}
 
 where *j* is the total number of active sites, *E~total~* can be built into a *V~max~* term,
-and $k_{i} = k_{basal} + (V_{max} - k_{basal})\frac{i}{j}^\gamma$. Due to the large number 
+and $k_{i} = k_{basal} + (V_{max} - k_{basal})(\frac{i}{j})^\gamma$. Due to the large number 
 of parameters, these complex equations are difficult to assess confidence of fit given the 
 estimated starting guess ("Best-Fit") when the number of substrate concentrations is less than 30.
 Therefore, Cross-Validation of the solved parameters using the KFold technique with 10 splits 

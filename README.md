@@ -49,7 +49,8 @@ Once `KAT` is installed, operating was designed to be as straightforward as poss
 
 1. Enter a name for the outputted graphs and parameter information in the `Output Filename` block
 2. Upload the data CSV file and the blank CSV file (if present)
-   - Make sure data is formatted like the following
+   - Make sure data is formatted like the following:
+  
      | Time Data | Temperature | Max Sub. | Next Sub.|
      | :---: | :---: | :---: | :---: |
      | 00:00:00 |  29C  | raw data   | raw data |

@@ -64,7 +64,7 @@ models built-in, requiring the user to input complex algebraic equations by hand
 [@leatherbarrow:1988] `KAT` already has these models integrated and directly outputs 
 easily-modifiable SVG graphs, as well as typical PNG-formatted graphs. For the 
 classical models, the kinetic parameters are conviently displayed upon completing 
-the calculation whereas the complex models display each parameter in a pop-up window.
+the calculation, whereas the complex models display each parameter in a pop-up window.
 
 `KAT` utilizes both numerical solving (classical models) and optimization (complex
 models) using the lowest residual square sum for the determination of kinetic 

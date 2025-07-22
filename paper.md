@@ -135,7 +135,7 @@ and R states, the model requires that the T and R states exist in discreet envir
 where part of the enzyme cannot exist in both states at once. Since not all enzymes exhibit
 a complete transition from T to R states at once, Koshland, Nemethy, and Filmer developed a 
 model that accounts for enzymes that exist in states T and R simultaneously by introducing a 
-\gamma term. This term provides the basis for coopertivity in the enzyme. Additionally,
+$\gamma$ term. This term provides the basis for coopertivity in the enzyme. Additionally,
 the Koshland-Nemethy-Filmer model utilizes a term for each acitve site of the enzyme (denoted
 as *i* here).[@koshland:1966] Upon summing all possible enzyme states (from unbound to bound) 
 in each active site, *i*:

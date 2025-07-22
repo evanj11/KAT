@@ -23,7 +23,7 @@ with open('substrate_data.txt', 'r') as file:
     print(lines)
     line_1 = int(lines[0])
     line_2 = float(lines[1])
-    line_3 = int(lines[2])
+    line_3 = float(lines[2])
     substrate_vals = [line_1, line_2, line_3]
 
 inputs = get_inputs()

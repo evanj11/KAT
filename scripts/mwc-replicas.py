@@ -330,7 +330,8 @@ def main():
         vvalues_rep.append(vvalues)
         vval_calc_rep.append(vval_calc)
         kinetic_parameters_rep.append(kinetic_parameters)
-        conf_all.extend(within_ci)
+        if len(substrate) < 30:
+            conf_all.extend(within_ci)
         plot = graph_kinetic_data(os.path.join(work_dir, f"{file_name[0]}_{i}"), substrate, vvalues, vval_calc, kinetic_parameters, 0)
         plot.no_inset()
     vval_sub = []
@@ -461,8 +462,6 @@ def main():
                 file.write('\n')
                 file.write('Poor confidence\n')
                 file.write('Using Cross-Validation values')
-       
-
 
     n_tot = n_avg + '\u00B1' + n_std
     plot_rep = graph_kinetic_data(os.path.join(work_dir, file_name[0]), substrate, vvalues_rep, vval_calc_rep, n_tot, 0)

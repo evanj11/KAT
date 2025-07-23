@@ -78,6 +78,7 @@ def main():
     vvalues_rep = []
     kinetic_parameters_rep = []
     vval_calc_rep = []
+    conf_all = []
     for i in range(len(pathds)):
         data = Import_Kinetic_Data(pathds[i], substrate)
         df_data = data.import_data(columns)
@@ -340,6 +341,8 @@ def main():
         vvalues_rep.append(vvalues)
         vval_calc_rep.append(vval_calc)
         kinetic_parameters_rep.append(kinetic_parameters)
+        if len(substrate) < 30:
+            conf_all.extend(within_ci)
         plot = graph_kinetic_data(os.path.join(work_dir, f"{file_name[0]}_{i}"), substrate, vvalues, vval_calc, kinetic_parameters, 0)
         plot.no_inset()
     vval_sub = []
@@ -441,7 +444,12 @@ def main():
         file.write(" \u00B1 ")
         file.write(str(y_std))
         file.write("\n")
-        
+        if len(substrate) < 30:
+            if 'False' in conf_all:
+                file.write('\n')
+                file.write('Poor confidence\n')
+                file.write('Using Cross-Validation values')
+       
     y_tot = y_avg + '\u00B1' + y_std
     plot_rep = graph_kinetic_data(os.path.join(work_dir, file_name[0]), substrate, vvalues_rep, vval_calc_rep, y_tot, 0)
     with open(os.path.join(work_dir, "mutant.txt"), 'r') as file:

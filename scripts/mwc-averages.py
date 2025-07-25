@@ -233,8 +233,13 @@ def main():
         else:
             confidence.append('False')
        
-    val = MWC_Kinetic_Solver(kinetic_parameters[0], kinetic_parameters[1], kinetic_parameters[2], kinetic_parameters[3], kinetic_parameters[4], kinetic_parameters[5])
-    calc = val.mwc_model(substrate)
+    val_bf = MWC_Kinetic_Solver(kinetic_parameters[0], kinetic_parameters[1], kinetic_parameters[2], kinetic_parameters[3], kinetic_parameters[4], kinetic_parameters[5])
+    bf_calc = val_bf.mwc_model(substrate)
+    
+    val_cv = MWC_Kinetic_Solver(cv_mean_params[0], cv_mean_params[1], cv_mean_params[2], cv_mean_params[3], cv_mean_params[4], cv_mean_params[5])
+    cv_calc = val_cv.mwc_model(substrate)
+
+
 
     with open(os.path.join(work_dir, 'name_data.txt'), 'r') as file:
         file_name = [line.strip() for line in file.readlines()]
@@ -287,6 +292,9 @@ def main():
     
     if len(substrate) < 30:
         if 'False' in within_ci:
+            val_cv = MWC_Kinetic_Solver(cv_mean_params[0], cv_mean_params[1], cv_mean_params[2], cv_mean_params[3], cv_mean_params[4], cv_mean_params[5])
+            cv_calc = val_cv.mwc_model(substrate)
+
             kinetic_parameters = cv_mean_params
         else:
             kinetic_parameters = refined.x
@@ -314,8 +322,18 @@ def main():
                 file.write('Poor confidence\n')
                 file.write('Using Cross-Validation values')
 
-    plot = graph_kinetic_data(os.path.join(work_dir, file_name[0]), substrate, vvalues, calc, kinetic_parameters, vv_std)
-    plot.no_inset()
+    plot = graph_kinetic_data(os.path.join(work_dir, file_name[0]), substrate, vvalues, bf_calc, kinetic_parameters, vv_std)
+    if len(substrate) < 30:
+        if 'False' in within_ci:
+            plot.cv_no_inset(cv_calc, refined.x, cv_mean_params)
+            plot_x = graph_kinetic_data(os.path.join(work_dir, f'{file_name[0]_no_cv'), substrate, vvalues, bf_calc, kinetic_parameters, vv_std)
+            plot_x.no_inset()
+        else:
+            plot.no_inset()
+            plot_x = graph_kinetic_data(os.path.join(work_dir, f'{file_name[0]}_with_cv'), substrate, vvalues, bf_calc, kinetic_parameters, vv_std)
+            plot_x.cv_no_inset(cv_calc, refined.x, cv_mean_params)
+    else:
+        plot.no_inset()
 
 
 if __name__ == "__main__":

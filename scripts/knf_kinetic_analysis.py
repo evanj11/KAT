@@ -364,6 +364,50 @@ class graph_kinetic_data:
         fig.savefig(f'{name}.png', dpi=300)
         fig.savefig(f'{name}.svg')
         return fig
+   
+    def cv_no_inset(self, cv_vval, bf_kp, cv_kp):
+        substrate = self.substrate
+        vvalues = self.vvalues
+        vval_calc = self.vval_calc
+        vv_std = self.vv_std
+        self.cv_vval = cv_vval
+        self.cv_kp = cv_kp
+        self.bf_kp = bf_kp
+
+        name = self.name
+        fig, ax = plt.subplots(figsize=(4,3), dpi=250)
+        plt.subplots_adjust(left=0.15, wspace=0.3, bottom=0.15)
+        ax.errorbar(substrate, vvalues, yerr=vv_std, fmt="*", color='blue', label="Data", markersize=6, elinewidth=1, capsize=1.5, barsabove=True)
+        ax.errorbar(substrate, vval_calc, fmt="o-", color='black', label="BF Calculated", markersize=2)
+        ax.errorbar(substrate, cv_vval, fmt="o-", color='slateblue', label="CV Calculated", markersize=2)
+        ax.set_ylabel("V\u2080")
+        ax.set_xlabel("[Substrate]")
+        ax.set_title("MWC Kinetic Plot")
+        ax.set_xscale("log")
+        hill_bf = '%.2f'%(bf_kp[3])
+        hill_cv = '%.2f'%(cv_kp[3])
+        ax.annotate(f'BF Gamma = {hill_bf}', 
+            xy=(0.05, 0.97), # Adjust based on your bbox_to_anchor for the legend
+            xycoords='axes fraction', 
+            xytext=(0, 0), # Offset from xy in points
+            textcoords='offset points',
+            horizontalalignment='left', 
+            verticalalignment='top',
+            fontsize=7,
+            fontstyle='italic')
+        ax.annotate(f'CV Gamma = {hill_cv}', 
+            xy=(0.05, 0.92), # Adjust based on your bbox_to_anchor for the legend
+            xycoords='axes fraction', 
+            xytext=(0, 0), # Offset from xy in points
+            textcoords='offset points',
+            horizontalalignment='left', 
+            verticalalignment='top',
+            fontsize=7,
+            fontstyle='italic')
+        fig.legend(loc='upper left', bbox_to_anchor=(0.01, 0.89), bbox_transform=plt.gca().transAxes, fontsize=8)
+        fig.savefig(f'{name}.png', dpi=300)
+        fig.savefig(f'{name}.svg')
+        return fig
 
     def rep_no_inset(self, vval_rep_avg, vval_calc_rep_avg, vval_rep_std, vval_calc_rep_std):
         substrate = self.substrate

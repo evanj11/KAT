@@ -371,7 +371,7 @@ class BatchImportCSV(QWidget):
        
         self.num_blank_combo = QComboBox()
         self.num_blank_combo.setMaximumWidth(150)
-        self.num_blank_combo.addItems(["Select", "1", "2", "3", "4", "5"])
+        self.num_blank_combo.addItems(["Select", "0", "1", "2", "3", "4", "5"])
         layout.addWidget(QLabel("Number of Blanks to Subtract:"), 8, 0)
         layout.addWidget(self.num_blank_combo, 8, 1)
         self.num_blank_combo.currentTextChanged.connect(self.toggle_blank_rep_input)
@@ -935,6 +935,12 @@ class BatchImportCSV(QWidget):
             with open(pathd, "a") as f:
                 f.write(self.rep5_path_input.text())
                 f.write("\n")
+        if self.num_blank_combo.currentText().strip():
+            pathb = os.path.join(self.output_dir_input.text(), "blank_rep_data.txt")
+            with open(pathb, "w") as f:
+                f.write('None')
+                f.write("\n")
+
         if self.blank1_path_input.text().strip():
             pathb = os.path.join(self.output_dir_input.text(), "blank_rep_data.txt")
             with open(pathb, "w") as f:

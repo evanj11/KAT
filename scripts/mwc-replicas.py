@@ -90,7 +90,7 @@ def main():
             df_blank = blank.import_data(columns)
             df = pd.DataFrame(df_data.values - df_blank.values)
             print(df)
-        elif 1 == len(pathbs):
+        elif 'None' not in pathbs and 1 == len(pathbs):
             blank = Import_Kinetic_Data(pathbs[0], substrate)
             df_blank = blank.import_data(columns)
             df = pd.DataFrame(df_data.values - df_blank.values)

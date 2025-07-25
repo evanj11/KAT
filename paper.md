@@ -23,11 +23,12 @@ bibliography: paper.bib
 
 # Summary
 
-When studying previously unknown or novel enzymes, kinetics serves as the basis
+When studying previously unknown or uncharacterized enzymes, kinetics serves as the basis
 for understanding the key properties of the enzyme. These properties can give 
 rise to vital information regarding binding affinity of substrate, energetics or 
-speed of the reaction, and even potentail allosteric effects within the enzyme 
-itself. Often, kinetic assays are the simplest way to begin to ascertain key
+speed of the reaction, and even potential allosteric effects within the enzyme 
+itself. These parameters often help guide novel therapeutic discovery.
+Often, kinetic assays are the simplest way to begin to ascertain key
 details about the function of a given enzyme, allowing properties to be compared 
 between wild-type and mutant enzymes. Currently, kinetic data is processed in a 
 concerted, step-wise fashion that allows it to be swiftly automated and fitted 
@@ -46,7 +47,7 @@ data and fitting the data to several classical (Michaelis-Menten and Hill)
 replicate data or data arising from several mutations. These replica fitting
 functions output either averages and standard deviations for each kinetic 
 parameter or side-by-side analysis for mutant data sets. The Python-based GUI
-allows for simple entering of necessary data: the CSV file with fluorescent or
+allows for simple inputting of necessary data: the CSV file with fluorescent or
 absorbance data, the substrate information (number of substrate concentrations, 
 dilution factor, and maximum concentration), and the window within which to 
 calculate the velocity data. There is a built-in function to auto calculate the
@@ -83,9 +84,9 @@ standardize the fitting of data to both classical and complex kinetic models.
 ## Kinetic Models
 ### *Classical*
 Based on the simple model of an enzyme existing in three discreet states, the Michaelis-Menten 
-equation identifies a *V~max~* and a *K~M~* that difine the maximum velocity and 
+equation identifies a *V~max~* and a *K~M~* that define the maximum velocity and 
 the Michaelis constant, which correlates to binding affinity between substrate and 
-enzyme, respectively.[@johnson:2011] The Micaelis-Menten equation assumes that the three 
+enzyme, respectively.[@johnson:2011] The Michaelis-Menten equation assumes that the three 
 states are discreet and independent. 
 
 \begin{equation}
@@ -116,12 +117,12 @@ v = \frac{V_{max}[S]^n}{K_{M}^n+[S]^n}
 While the Michaelis-Menten and Hill  models often explain the majority of enzymes, the Hill 
 equation in particular is limited in its explanation for the mechanism of allostery within 
 the enzyme. Monod, Wyman, and Changeux further expanded upon the equation and introduced a 
-two-stage existance of an allosterically-regulated enzyme, that being a tensed or "T" state, 
+two-stage existance of an allosterically-regulated enzyme: a tensed or "T" state, 
 where binding of substrate and catalysis is limited, and a relaxed or "R" state, where both
 binding and catalysis are accelerated. These additional states each have a *V* and a *K* 
 parameter that govern velocity of catalyis and affinity, respectively. Further, there are
-two additional parameters (for a total of 6): L0, or the coopertivity coeficient as a ratio
-of the enzyme in the T state vs. the R state, and N, or typically the number of allosteric
+two additional parameters (for a total of 6): *L~0~*, or the cooperativity coefficient as a ratio
+of the enzyme in the T state vs. the R state, and *N*, or typically the number of allosteric
 sites in the enzyme.[@monod:1965] These parameters combine to give the following 
 Monod-Wyman-Changeux equation:
 
@@ -151,7 +152,7 @@ Therefore, Cross-Validation of the solved parameters using the KFold technique w
 is used. Further, if the number of substrate concentrations is below 30, Bayesian bootstrapping 
 is implemented to assess the 99% confidence intervals of each parameter, and the "best-fit" 
 data is tested to be within these confidence intervals. If a best-fit parameter falls outside 
-of the 99% confidence interval, the cross-validation parameters are provided instead "best-fit." 
+of the 99% confidence interval, the cross-validation parameters are provided instead of "best-fit." 
 Otherwise, the "best-fit" values are provided.
 
 ## Model Fitting

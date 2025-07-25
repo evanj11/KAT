@@ -28,14 +28,13 @@ for understanding the key properties of the enzyme. These properties can give
 rise to vital information regarding binding affinity of substrate, energetics or 
 speed of the reaction, and even potentail allosteric effects within the enzyme 
 itself. Often, kinetic assays are the simplest way to begin to ascertain key
-details about the function of a given enzyme, allowing for the comparison between
-properties to be compared between wild-type and mutant enzymes. Currently, kinetic
-data is processed in a concerted, step-wise fashion that allows it to be swiftly 
-automated and fitted to a number of kinetics equations, a necessary step for 
-understanding novel enzymes. A fully-functional GUI that accepts raw data and 
-outputs both kinetic parameters and a graph of the fit not only significantly
-accelerates data analysis, but also guarantees the same treatment of data across
-replicas and experiments.
+details about the function of a given enzyme, allowing properties to be compared 
+between wild-type and mutant enzymes. Currently, kinetic data is processed in a 
+concerted, step-wise fashion that allows it to be swiftly automated and fitted 
+to a number of kinetics equations, a necessary step for understanding novel enzymes. 
+A fully-functional GUI that accepts raw data and outputs both kinetic parameters 
+and a graph of the fit not only significantly accelerates data analysis, but also 
+guarantees the same treatment of data across replicas and experiments.
 
 
 # Statement of need

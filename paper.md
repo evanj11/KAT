@@ -150,7 +150,7 @@ of parameters, these complex equations are difficult to assess confidence of fit
 estimated starting guess ("Best-Fit") when the number of substrate concentrations is less than 30.
 Therefore, Cross-Validation of the solved parameters using the KFold technique with 10 splits 
 is used. Further, if the number of substrate concentrations is below 30, Bayesian bootstrapping 
-is implemented to assess the 99% confidence intervals of each parameters, and the "best-fit" 
+is implemented to assess the 99% confidence intervals of each parameter, and the "best-fit" 
 data is tested to be within these confidence intervals. If a best-fit parameter falls outside 
 of the 99% confidence interval, the cross-validation parameters are provided instead "best-fit." 
 Otherwise, the "best-fit" values are provided.

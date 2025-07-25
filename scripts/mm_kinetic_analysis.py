@@ -247,6 +247,7 @@ class graph_kinetic_data:
         ax.set_xlabel("[Substrate]")
         ax.set_title("M-M Kinetic Plot")
         plt.savefig(f'{name}.png')
+        plt.savefig(f'{name}.svg')
         return fig
     
     def rep_no_inset(self, vval_rep_avg, vval_calc_rep_avg, vval_rep_std, vval_calc_rep_std):

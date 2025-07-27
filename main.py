@@ -1156,10 +1156,14 @@ class KineticAnalysisTool(QMainWindow):
         self.opacity_effect = QGraphicsOpacityEffect(self.logo_label)
         self.opacity_effect.setOpacity(0.4)  # Set opacity (0.0 for fully transparent, 1.0 for fully opaque)
         self.logo_label.setGraphicsEffect(self.opacity_effect)
-        logos_layout.addWidget(self.logo_label, 0, 2)
+        logos_layout.addWidget(self.logo_label, 0, 1)
         logos_group.setLayout(logos_layout)
         logos_group.setMaximumHeight(175)
         left_layout.addWidget(logos_group)
+        
+#        self.open_graph_btn = QPushButton("Open Existing Graph")
+#        self.open_graph_btn.clicked.connect(self.open_graph)
+#        left_layout.addWidget(self.open_graph_btn)
 
         main_layout.addLayout(left_layout) 
 
@@ -1250,7 +1254,7 @@ class KineticAnalysisTool(QMainWindow):
 
         # Add graph display button below instructions (if you want it here)
         self.graph_button = QPushButton("Display Graph and Output Values")
-        self.graph_button.setStyleSheet("background-color: #3399cc; color: white;")
+        self.graph_button.setStyleSheet("background-color: #3399cc; color: white")
         middle_layout.addWidget(self.graph_button)
         self.graph_button.clicked.connect(self.display_graph)
 
@@ -1274,7 +1278,7 @@ class KineticAnalysisTool(QMainWindow):
 
         self.tabs = QTabWidget()
         self.tabs.setStyleSheet("QTabWidget::pane { background: #dfd4ff; border: 1px solid #b498ff; padding: 10px }")
-        self.tabs.setMaximumHeight(400)
+        self.tabs.setMaximumHeight(450)
         self.tab_classical = QWidget()
         self.tab_complex = QWidget()
         self.tab_inhib = QWidget()
@@ -1289,25 +1293,28 @@ class KineticAnalysisTool(QMainWindow):
 
         pixmap = QPixmap(get_resource_path(".imgs/Cat Scientist at Work.png"))
 
-        # Create a QLabel and set the pixmap
         image_label = QLabel()
         image_label.setPixmap(pixmap)
         image_label.setAlignment(Qt.AlignCenter)
         image_label.setScaledContents(True)  # optional: scale image to fit label size
 
-        # Optionally set fixed size for the label
-        image_label.setFixedSize(325, 450)  # adjust width, height to your liking
+        image_label.setFixedSize(300, 425)  # adjust width, height to your liking
 
-        # Add this label to a layout, e.g. next to your tabs or buttons
         right_layout.addWidget(image_label)
-        
-        main_layout.addLayout(right_layout)
+
+        self.open_graph_btn = QPushButton("Open Existing Graph")
+        self.open_graph_btn.clicked.connect(self.open_graph)
+        self.open_graph_btn.setStyleSheet("background-color: #23395d;; color: white")
+        self.open_graph_btn.setMaximumHeight(20)
+        right_layout.addWidget(self.open_graph_btn)
 
         self.help_button = QPushButton("Help")
-        self.help_button.setStyleSheet("background-color: #C41E3A; color: white;")
+        self.help_button.setStyleSheet("background-color: #C41E3A; color: white")
+        self.help_button.setMaximumHeight(20)
         self.help_button.clicked.connect(self.open_gen_help_window)
         right_layout.addWidget(self.help_button)
         
+        main_layout.addLayout(right_layout)
 
         # Welcome label centered at bottom spanning width
         self.welcome_label = QLabel(
@@ -1607,6 +1614,18 @@ class KineticAnalysisTool(QMainWindow):
             self.movie.stop()
             self.loading_label.hide()
 
+    def open_graph(self):
+        options = QFileDialog.Options()
+        path, _ = QFileDialog.getOpenFileName(self, "Select PNG File", "", "PNG Files (*.png)", options=options)
+        if path is not None:
+        #    self.open_graph_text.setText(path)
+            pixmap = QPixmap(path)
+            scaled_pixmap = pixmap.scaled(
+                self.image_display.width(), self.image_display.height(),
+                Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            self.image_display.setPixmap(scaled_pixmap)
+            self.image_display.setAlignment(Qt.AlignCenter)
+
     def display_graph(self):
         filename = self.output_name_input.text().strip()
         output_dir = self.output_dir_input.text().strip()
@@ -1628,6 +1647,7 @@ class KineticAnalysisTool(QMainWindow):
         )
 
         self.image_display.setPixmap(scaled_pixmap)
+        self.image_display.setAlignment(Qt.AlignCenter)
 
         kp_path = os.path.join(output_dir, f'{filename}.txt')
         if not os.path.exists(kp_path):

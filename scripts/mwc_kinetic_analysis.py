@@ -307,7 +307,7 @@ class MWC_Kinetic_Solver:
             partial derivative of the full equation, f, with respect to N
         """
 
-       V_T, V_R, K_T, K_R, L0, n = symbols('V_T V_R K_T K_R L0 n')
+        V_T, V_R, K_T, K_R, L0, n = symbols('V_T V_R K_T K_R L0 n')
         eq1 = df_dV_T
         eq2 = df_dV_R
         eq3 = df_dK_T

@@ -327,7 +327,7 @@ def main():
     if len(substrate) < 30:
         if 'False' in within_ci:
             plot.cv_no_inset(cv_calc, refined.x, cv_mean_params)
-            plot_x = graph_kinetic_data(os.path.join(work_dir, f'{file_name[0]}_no_cv'), substrate, vvalues, bf_calc, kinetic_parameters, vv_std)
+            plot_x = graph_kinetic_data(os.path.join(work_dir, f'{file_name[0]}_no_cv'), substrate, vvalues, bf_calc, refined.x, vv_std)
             plot_x.no_inset()
         else:
             plot.no_inset()

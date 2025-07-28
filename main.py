@@ -9,6 +9,7 @@ import os
 import subprocess
 import runpy
 import traceback
+from datetime import datetime
 from PySide6.QtWidgets import (
     QApplication, QWidget, QLabel, QLineEdit, QPushButton,
     QTabWidget, QFileDialog, QVBoxLayout, QHBoxLayout, QTextEdit,
@@ -17,7 +18,7 @@ from PySide6.QtWidgets import (
 )
 from PySide6.QtSvg import QSvgRenderer
 from PySide6.QtGui import QPixmap, QFont, QPainter, QPalette, QColor, QImage, QDoubleValidator, QMovie
-from PySide6.QtCore import Qt, QTimer, QSize, QThread, QObject, Signal
+from PySide6.QtCore import Qt, QTimer, QSize, QThread, QObject, Signal, QProcess
 
 import tempfile
 import shutil
@@ -77,6 +78,7 @@ def safe_open_file_dialog(parent, caption="Open File", file_filter="CSV Files (*
 
 class ScriptWorker(QObject):
     finished = Signal()
+    log_output = Signal(str)
 
     def __init__(self, script_path):
         super().__init__()
@@ -84,7 +86,7 @@ class ScriptWorker(QObject):
 
     def run(self):
         from run_script import run_internal_script  # Import here to avoid freezing
-        run_internal_script(self.script_path, call_main=True)
+        run_internal_script(self.script_path, call_main=True, log_callback=self.log_output.emit)
         self.finished.emit()
 
 
@@ -1268,6 +1270,9 @@ class KineticAnalysisTool(QMainWindow):
         self.image_display.setStyleSheet("background-color: white; border: 1px solid #ccc;")
         self.image_display.setMinimumHeight(400)
         self.image_display.setMinimumWidth(670)
+        pixmap_welcome = QPixmap(get_resource_path(".imgs/welcome.png")).scaled(300, 300, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        self.image_display.setPixmap(pixmap_welcome)
+        self.image_display.setAlignment(Qt.AlignCenter)
 
         middle_layout.insertWidget(1, self.image_display)
 
@@ -1278,7 +1283,7 @@ class KineticAnalysisTool(QMainWindow):
 
         self.tabs = QTabWidget()
         self.tabs.setStyleSheet("QTabWidget::pane { background: #dfd4ff; border: 1px solid #b498ff; padding: 10px }")
-        self.tabs.setMaximumHeight(450)
+        self.tabs.setMaximumHeight(300)
         self.tab_classical = QWidget()
         self.tab_complex = QWidget()
         self.tab_inhib = QWidget()
@@ -1290,18 +1295,20 @@ class KineticAnalysisTool(QMainWindow):
         self.setup_tabs()
         right_layout.addWidget(self.tabs)
 
+        self.log_box = QTextEdit(self)
+        self.log_box.setReadOnly(True)
+        self.log_box.setMinimumHeight(300)
+        self.log_box.verticalScrollBar().setValue(
+            self.log_box.verticalScrollBar().maximum()
+            )
+        right_layout.addWidget(self.log_box)
 
-        pixmap = QPixmap(get_resource_path(".imgs/Cat Scientist at Work.png"))
-
-        image_label = QLabel()
-        image_label.setPixmap(pixmap)
-        image_label.setAlignment(Qt.AlignCenter)
-        image_label.setScaledContents(True)  # optional: scale image to fit label size
-
-        image_label.setFixedSize(300, 425)  # adjust width, height to your liking
-
-        right_layout.addWidget(image_label)
-
+        self.process = QProcess(self)
+        self.process.readyReadStandardOutput.connect(self.handle_stdout)
+        self.process.readyReadStandardError.connect(self.handle_stderr)
+        self.process.finished.connect(self.process_finished)
+        self.process.setProcessChannelMode(QProcess.MergedChannels)
+        
         self.open_graph_btn = QPushButton("Open Existing Graph")
         self.open_graph_btn.clicked.connect(self.open_graph)
         self.open_graph_btn.setStyleSheet("background-color: #23395d;; color: white")
@@ -1483,6 +1490,8 @@ class KineticAnalysisTool(QMainWindow):
         self.statusBar().showMessage("Running analysis script...")
         self.loading_label.show()
         self.movie.start()
+        self.log_message("Running Script...")
+
         if self.file_path_input.text() == 'Batch Import':
             QMessageBox.warning(self, 'Warning', 'You have entered replica data, make sure you select a model under the Replicas tab')
 
@@ -1594,6 +1603,7 @@ class KineticAnalysisTool(QMainWindow):
 
         self.thread = QThread()
         self.worker = ScriptWorker(script_path)
+        self.worker.log_output.connect(self.log_box.append)
         self.worker.moveToThread(self.thread)
 
         self.thread.started.connect(self.worker.run)
@@ -1618,13 +1628,13 @@ class KineticAnalysisTool(QMainWindow):
         options = QFileDialog.Options()
         path, _ = QFileDialog.getOpenFileName(self, "Select PNG File", "", "PNG Files (*.png)", options=options)
         if path is not None:
-        #    self.open_graph_text.setText(path)
             pixmap = QPixmap(path)
             scaled_pixmap = pixmap.scaled(
                 self.image_display.width(), self.image_display.height(),
                 Qt.KeepAspectRatio, Qt.SmoothTransformation)
             self.image_display.setPixmap(scaled_pixmap)
             self.image_display.setAlignment(Qt.AlignCenter)
+        self.log_message(f"Opened existing graph: {path}")
 
     def display_graph(self):
         filename = self.output_name_input.text().strip()
@@ -1689,18 +1699,22 @@ class KineticAnalysisTool(QMainWindow):
                     self.kcat_output.setText(str(kcat))
             else:
                 self.kcat_output.setText("N/A")
+        self.log_message("Displayed output graph and data")
 
     def open_gen_help_window(self):
         self.help_window = GeneralHelpWindow()
         self.help_window.show()
+        self.log_message("Opened Help Window")
     def open_time_help_window(self):
         self.help_window = TimeHelpWindow()
         self.help_window.show()
+        self.log_message("Opened Time Help Window")
     def batch_input_window(self):
         self.batch_import = BatchImportCSV()
         self.batch_import.folder_selected.connect(self.set_main_output_folder)
         self.batch_import.done.connect(self.set_batch_import_label)
         self.batch_import.show()
+        self.log_message("Entered inputs for replica data")
     
     def set_main_output_folder(self, path):
         self.output_dir_input.setText(path)
@@ -1732,7 +1746,24 @@ class KineticAnalysisTool(QMainWindow):
             self.time_min_label.show()
             self.time_max_label.show()
             self.time_step_label.show()
+
+    def log_message(self, message):
+        self.log_box.append(f"<span style='color:green;'>[{datetime.now():%H:%M:%S}] {message}</span>")
     
+    def handle_stdout(self):
+        data = self.process.readAllStandardOutput()
+        stdout = bytes(data).decode("utf-8")
+        self.log_message(stdout)
+    
+    def handle_stderr(self):
+        data = self.process.readAllStandardError()
+        stderr = bytes(data).decode("utf-8")
+        self.log_message(stderr)
+    
+    def process_finished(self):
+        self.log_message('Script finished')
+
+
     def closeEvent(self, event):
         work_dir = os.environ.get('WORKING_DIR')
         temp_files = ["substrate_data.txt",

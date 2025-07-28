@@ -6,6 +6,8 @@ import argparse
 from math import comb
 from scipy.optimize import fsolve, least_squares, Bounds, minimize
 from sympy import symbols, diff, solve, nsolve, checksol
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
@@ -314,8 +316,6 @@ class Import_Kinetic_Data:
             else:
                 lin_range_sub = find_first_and_last_small_diff(vals, threshold=2.5)
             lin_range_all.append(lin_range_sub)
-        print(lin_range_sub)
-        print(lin_range_all)
         first_indices = [pair[0] for pair in lin_range_all if None not in pair]
         last_indices  = [pair[1] for pair in lin_range_all if None not in pair]
         avg_first = sum(first_indices) / len(first_indices)

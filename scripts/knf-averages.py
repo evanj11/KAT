@@ -1,3 +1,4 @@
+import sys
 import knf_kinetic_analysis
 import numpy as np
 import pandas as pd
@@ -45,6 +46,7 @@ def bayesian_bootstrap(sites, s, v, best_params, n_iter=1000):
 def main():
     work_dir = os.environ.get('WORKING_DIR') 
 
+    print("Running KNF Kinetic Analysis\n")
     with open(os.path.join(work_dir, 'substrate_data.txt'), 'r') as file:
         lines = [line.strip() for line in file.readlines()]
         line_1 = int(lines[0])
@@ -57,7 +59,6 @@ def main():
 
     with open(os.path.join(work_dir, 'path_data.txt'), 'r') as file:
         path = [line.strip() for line in file.readlines()]
-        print(path)
 
     col_max = len(substrate) + 2
     columns = [2, col_max]
@@ -84,13 +85,12 @@ def main():
     
     if 'True' in time:
         lin_range = data.gen_lin_range(df, time[1])
-        print(lin_range)
+        print(f'Linear Range = {lin_range}\n', file=sys.stdout, flush=True)
         step = lin_range[1] - lin_range[0]
         time = [lin_range[0], lin_range[1], step, line_2]
 
     
     vvalues_all = data.gen_vvalues(df, time_min=time[0], time_max=time[1], steps=time[2], v_win=time[3])
-    print(vvalues_all)
 
     sum_value_guess = []
     sum_value_min = []
@@ -122,7 +122,10 @@ def main():
         lines = [line.strip() for line in file.readlines()]
         sites = lines[0]
 
-    print(vv_std)
+    vvalues_txt = [float(x) for x in vvalues]
+    form_vv = ['%.4f' % elem for elem in vvalues_txt]
+    print(f'Velocity values are {form_vv}\n', file=sys.stdout, flush=True)
+
     vmax_guess = vvalues[0]
     kd_guess = substrate[np.abs(vvalues[0] - 0.5 * vmax_guess).argmin()]
     kbasal_guess = np.min(vvalues)
@@ -151,8 +154,8 @@ def main():
 
     # Optimized parameters
     kinetic_parameters = refined.x
-    print("Best fit parameters:", kinetic_parameters)
-    print("Minimized residual sum of squares:", refined.fun)       
+    print(f"Best fit parameters: {kinetic_parameters}\n", file=sys.stdout, flush=True)
+    print(f"Minimized residual sum of squares: {refined.fun}\n", file=sys.stdout, flush=True)       
 
     X = np.array(substrate)
     y = np.array(vvalues)
@@ -183,8 +186,8 @@ def main():
             errors.append(kf_res.fun)
     cv_mean_params = np.mean(cv_params, axis=0)
     errors_mean = np.mean(errors, axis=0)
-    print(f"Params = {cv_mean_params}")
-    print(f"RSS = {errors_mean}")
+    print(f"Params = {cv_mean_params}\n", file=sys.stdout, flush=True)
+    print(f"RSS = {errors_mean}\n", file=sys.stdout, flush=True)
 
     multi_start_result = None
     multi_start_loss = np.inf
@@ -199,7 +202,6 @@ def main():
         if res.fun < multi_start_loss:
             multi_start_loss = res.fun
             multi_start_result = res.x
-    print(multi_start_result)
 
     if len(substrate) < 30:
         # Begin bootstrapping data
@@ -215,7 +217,7 @@ def main():
         ci_upper = np.percentile(boot_params, 99.5, axis=0)
         param_names = ["V_T", "V_R", "K_T", "K_R", "L0", "n"]
         for names, low, high in zip(param_names, ci_lower, ci_upper):
-            print(f"{names}: 99% CI = [{low:.3f}, {high:.3f}]")
+            print(f"{names}: 99% CI = [{low:.3f}, {high:.3f}]", file=sys.stdout, flush=True)
 
 
     #AIC and BIC checks
@@ -227,11 +229,11 @@ def main():
     bic_bf = n * math.log(refined.fun / n) + 6 * math.log(n)
     bic_kf = n * math.log(errors_mean / n) + 6 * math.log(n)
     bic_diff = bic_bf - bic_kf
-    print(f'BIC results = {bic_diff}')
+    print(f'BIC results = {bic_diff}\n', file=sys.stdout, flush=True)
     if bic_diff < 0:
-        print('Best Fit has lower RSS')
+        print('Best Fit has lower RSS\n', file=sys.stdout, flush=True)
     else:
-        print('KFold has lower RSS')
+        print('KFold has lower RSS\n', file=sys.stdout, flush=True)
 
     if len(substrate) < 30:
         within_ci = []
@@ -258,7 +260,6 @@ def main():
 
     with open(os.path.join(work_dir, 'name_data.txt'), 'r') as file:
         file_name = [line.strip() for line in file.readlines()]
-        print(file_name)
 
     with open(os.path.join(work_dir, f'{file_name[0]}.txt'), 'w') as file:
         file.write('Complex model used')

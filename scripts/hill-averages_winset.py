@@ -1,3 +1,4 @@
+import sys
 import hill_kinetic_analysis
 import numpy as np
 import pandas as pd
@@ -15,7 +16,8 @@ def find_nearest(array, value):
 
 def main():
     work_dir = os.environ.get('WORKING_DIR')
-
+    
+    print("Running Hill Kinetic Analysis\n")
     with open(os.path.join(work_dir, 'substrate_data.txt'), 'r') as file:
         lines = [line.strip() for line in file.readlines()]
         line_1 = int(lines[0])
@@ -28,11 +30,8 @@ def main():
 
     with open(os.path.join(work_dir, 'path_data.txt'), 'r') as file:
         path = [line.strip() for line in file.readlines()]
-        print(path)
-    print(len(substrate))
     col_max = len(substrate) + 2
     columns = [2, col_max]
-    print(columns)
 
     data = Import_Kinetic_Data(path[0], substrate)
     df_data = data.import_data(columns)
@@ -56,13 +55,12 @@ def main():
     
     if 'True' in time:
         lin_range = data.gen_lin_range(df, time[1])
-        print(lin_range)
+        print(f'Linear Range: {lin_range}\n', file=sys.stdout, flush=True)
         step = lin_range[1] - lin_range[0]
         time = [lin_range[0], lin_range[1], step, line_2]
 
     
     vvalues_all = data.gen_vvalues(df, time_min=time[0], time_max=time[1], steps=time[2], v_win=time[3])
-    print(vvalues_all)
 
     sum_value_guess = []
     sum_value_min = []
@@ -90,7 +88,6 @@ def main():
             vvalues_abs.append(vv)
         vvalues = vvalues_abs
 
-    print(vv_std)
     vm = (vvalues[0] + vvalues[1] + vvalues[2]) / 3
     hv = vm / 2
     hv = int(hv)
@@ -100,7 +97,7 @@ def main():
     ind = ind.astype(int)
     if ind.size == 0:
         ind = 0
-        print("One or More V Values are NaN, Move on to Next V Value")
+        print("One or More V Values are NaN, Move on to Next V Value", file=sys.stdout, flush=True)
     else:
         val = Hill_Kinetic_Solver(2, vm, substrate[ind[0] + 1])
         s = val.sums(2, vm, substrate[ind[0] + 1], vvalues, substrate)
@@ -111,9 +108,13 @@ def main():
         val_min = Hill_Kinetic_Solver(sol[0], sol[1], sol[2])
         s_min = val_min.sums(sol[0], sol[1], sol[2], vvalues, substrate)
         kinetic_parameters = sol
-        print(f"Done Calculating Kinetic Parameters")
+        print(f"Done Calculating Kinetic Parameters", file=sys.stdout, flush=True)
 
-    print(kinetic_parameters, s_min, vvalues)
+    print(f'Kinetic Parameters are {kinetic_parameters}\n', file=sys.stdout, flush=True)
+    print(f'Minimum Residual Sum is {s_min}\n', file=sys.stdout, flush=True)
+    vvalues_txt = [float(x) for x in vvalues]
+    form_vv = ['%.4f' % elem for elem in vvalues_txt]
+    print(f'Velocity values are {form_vv}\n', file=sys.stdout, flush=True)
 
     vval_calc = []
     for i in range(len(substrate)):
@@ -122,13 +123,11 @@ def main():
         vval_calc.append(calc)
 
     spx, spy = inputs.linear_hill_xy(vvalues, substrate)
-    print(spx, spy)
 
     poly1d_fn, linregx = inputs.linreg(spx, spy)
 
     with open(os.path.join(work_dir, 'name_data.txt'), 'r') as file:
         name = [line.strip() for line in file.readlines()]
-        print(name)
 
     with open(os.path.join(work_dir, f'{name[0]}.txt'), 'w') as file:
         file.write(str(kinetic_parameters[0]))

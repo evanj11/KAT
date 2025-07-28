@@ -20,7 +20,6 @@ def find_nearest(array, value):
 
 with open('substrate_data.txt', 'r') as file:
     lines = [line.strip() for line in file.readlines()]
-    print(lines)
     line_1 = int(lines[0])
     line_2 = float(lines[1])
     line_3 = float(lines[2])
@@ -31,7 +30,6 @@ substrate = inputs.gen_substrate(substrate_vals)
 
 with open('path_data.txt', 'r') as file:
     path = file.readlines()
-    print(path)
 
 data = Import_Kinetic_Data(path[0], substrate)
 
@@ -40,12 +38,10 @@ with open('column_data.txt', 'r') as file:
     line_1 = int(lines[0])+3
     line_2 = int(lines[1])+3
     columns = [line_1, line_2]
-    print(columns)
 
 df = data.import_data(columns)
 
 vvalues_all = data.gen_vvalues(df, time_min=5, time_max=15, steps=10)
-print(vvalues_all)
 
 
 # In[7]:
@@ -62,7 +58,6 @@ for j in range(len(vvalues_all[0])):
     vvalues.append(np.average(vvalue_it))
     vv_std.append(np.std(vvalue_it))
 
-print(vv_std)
 vm = (vvalues[0] + vvalues[1] + vvalues[2])/3
 hv = vm/2
 hv = int(hv)
@@ -105,7 +100,6 @@ for i in range(len(substrate)):
 # In[10]:
 
 
-print(vvalues[0])
 spx, spy = inputs.linear_hill_xy(vvalues, substrate)
 
 

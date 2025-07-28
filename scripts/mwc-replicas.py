@@ -1,3 +1,4 @@
+import sys
 import mwc_kinetic_analysis
 import numpy as np
 import pandas as pd
@@ -47,6 +48,7 @@ def bayesian_bootstrap(s, v, best_params, n_iter=1000):
 def main():
     work_dir = os.environ.get('WORKING_DIR')
 
+    print("<span style='color:blue;'>Running Monod-Wyman-Changeux Replica Kinetic Analysis\n</span>")
     with open(os.path.join(work_dir, 'substrate_data.txt'), 'r') as file:
         lines = [line.strip() for line in file.readlines()]
         line_1 = int(lines[0])
@@ -59,7 +61,6 @@ def main():
 
     with open(os.path.join(work_dir, 'path_rep_data.txt'), 'r') as file:
         pathds = [line.strip() for line in file.readlines()]
-        print(pathds)
     with open(os.path.join(work_dir, 'blank_rep_data.txt'), 'r') as file:
         pathbs = [line.strip() for line in file.readlines()]
     
@@ -83,6 +84,7 @@ def main():
     vval_calc_rep = []
     conf_all = []
     for i in range(len(pathds)):
+        print(f"<span style='color:purple;'>Running Replica #{i+1}\n</span>")
         data = Import_Kinetic_Data(pathds[i], substrate)
         df_data = data.import_data(columns)
         if len(pathds) == len(pathbs):
@@ -99,13 +101,12 @@ def main():
    
         if 'True' in time:
             lin_range = data.gen_lin_range(df, time[1])
-            print(lin_range)
+            print(f'Linear Range = {lin_range}\n', file=sys.stdout, flush=True) 
             step = lin_range[1] - lin_range[0]
             time = [lin_range[0], lin_range[1], step, line_2]
 
     
         vvalues_all = data.gen_vvalues(df, time_min=time[0], time_max=time[1], steps=time[2], v_win=time[3])
-        print(vvalues_all)
 
         sum_value_guess = []
         sum_value_min = []
@@ -133,7 +134,10 @@ def main():
                 vvalues_abs.append(vv)
             vvalues = vvalues_abs
 
-        print(vv_std)
+        vvalues_txt = [float(x) for x in vvalues]
+        form_vv = ['%.4f' % elem for elem in vvalues_txt]
+        print(f'Velocity values are {form_vv}\n', file=sys.stdout, flush=True)
+
         V_R_guess = vvalues[0]
         V_T_guess = 0.05 * V_R_guess
         K_R_guess = substrate[np.abs(vvalues[0] - 0.5 * V_R_guess).argmin()]
@@ -163,8 +167,8 @@ def main():
         })
 
         kinetic_parameters = refined.x
-        print("Best fit parameters:", kinetic_parameters)
-        print("Minimized residual sum of squares:", refined.fun)       
+        print(f"Best fit parameters: {kinetic_parameters}\n", file=sys.stdout, flush=True)
+        print(f"Minimized residual sum of squares: {refined.fun}\n", file=sys.stdout, flush=True)
 
         X = np.array(substrate)
         y = np.array(vvalues)
@@ -181,8 +185,8 @@ def main():
                 errors.append(kf_res.fun)
         cv_mean_params = np.mean(cv_params, axis=0)
         errors_mean = np.mean(errors, axis=0)
-        print(f"Params = {cv_mean_params}")
-        print(f"RSS = {errors_mean}")
+        print(f"Params = {cv_mean_params}\n", file=sys.stdout, flush=True)
+        print(f"RSS = {errors_mean}\n", file=sys.stdout, flush=True)
 
         multi_start_result = None
         multi_start_loss = np.inf
@@ -197,7 +201,6 @@ def main():
             if res.fun < multi_start_loss:
                 multi_start_loss = res.fun
                 multi_start_result = res.x
-        print(multi_start_result)
 
         if len(substrate) < 30:
             # Begin bootstrapping data
@@ -225,11 +228,11 @@ def main():
         bic_bf = n * math.log(refined.fun / n) + 6 * math.log(n)
         bic_kf = n * math.log(errors_mean / n) + 6 * math.log(n)
         bic_diff = bic_bf - bic_kf
-        print(f'BIC results = {bic_diff}')
+        print(f'BIC results = {bic_diff}\n', file=sys.stdout, flush=True)
         if bic_diff < 0:
-            print('Best Fit has lower RSS')
+            print('Best Fit has lower RSS\n', file=sys.stdout, flush=True)
         else:
-            print('KFold has lower RSS')
+            print('KFold has lower RSS\n', file=sys.stdout, flush=True)
 
         if len(substrate) < 30:
             within_ci = []
@@ -252,7 +255,6 @@ def main():
 
         with open(os.path.join(work_dir, 'name_data.txt'), 'r') as file:
             file_name = [line.strip() for line in file.readlines()]
-            print(file_name)
 
         with open(os.path.join(work_dir, f'{file_name[0]}_{i}.txt'), 'w') as file:
             file.write('Complex model used')
@@ -334,6 +336,8 @@ def main():
             conf_all.extend(within_ci)
         plot = graph_kinetic_data(os.path.join(work_dir, f"{file_name[0]}_{i}"), substrate, vvalues, vval_calc, kinetic_parameters, 0)
         plot.no_inset()
+
+    print(f"<span style='color:purple;'>Done computing replicas\n</span>")
     vval_sub = []
     vval_calc_sub = []
     for j in range(len(substrate)):
@@ -344,12 +348,10 @@ def main():
         vval_sub.append(vv_sub_temp)
         vval_calc_sub.append(vv_calc_temp)
     kinetic_parameters_sub = []
-    print(kinetic_parameters_rep)
     for m in range(6):
         kp_temp = []
         kp_temp.extend(float(kp_sub[m]) for kp_sub in kinetic_parameters_rep)
         kinetic_parameters_sub.append(kp_temp)
-    print(kinetic_parameters_sub)
     vval_rep_avg = []
     vval_rep_std = []
     vval_calc_rep_avg = []
@@ -372,7 +374,6 @@ def main():
         kinetic_parameters_avg.append(avg_kp)
         std_kp = np.std(kp)
         kinetic_parameters_std.append(std_kp)
-    print(kinetic_parameters_avg, kinetic_parameters_std)
 
     with open(os.path.join(work_dir, f'{file_name[0]}.txt'), 'w') as file:
         file.write('Complex model used')
@@ -487,6 +488,17 @@ def main():
         plot_rep.mut_rep(kinetic_parameters_rep)
     else:
         plot_rep.rep_no_inset(vval_rep_avg, vval_calc_rep_avg, vval_rep_std, vval_calc_rep_std)
+        kp_txt = [float(x) for x in kinetic_parameters_avg]
+        form_kp = ['%.3f' % elem for elem in kp_txt]
+        print(f"Avergage Kinetic Parameters: {form_kp}\n", file=sys.stdout, flush=True)
+        kp_std_txt = [float(x) for x in kinetic_parameters_std]
+        form_kp_std = ['%.3f' % elem for elem in kp_std_txt]
+        print(f"Kinetic Parameters Std. Deviation: {form_kp_std}\n", file=sys.stdout, flush=True)
+
+
+    print("<span style='color:blue;'>Script finished successfully\n</span>")
+
+
 
 if __name__ == "__main__":
     main()

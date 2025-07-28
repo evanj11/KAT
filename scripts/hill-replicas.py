@@ -1,3 +1,4 @@
+import sys
 import hill_kinetic_analysis
 import numpy as np
 import pandas as pd
@@ -15,6 +16,7 @@ def find_nearest(array, value):
 
 def main():
     work_dir = os.environ.get('WORKING_DIR')
+    print("<span style='color:blue;'>Running Hill Replica Kinetic Analysis\n</span>")
 
     with open(os.path.join(work_dir, 'substrate_data.txt'), 'r') as file:
         lines = [line.strip() for line in file.readlines()]
@@ -28,7 +30,6 @@ def main():
 
     with open(os.path.join(work_dir, 'path_rep_data.txt'), 'r') as file:
         pathds = [line.strip() for line in file.readlines()]
-        print(pathds)
     with open(os.path.join(work_dir, 'blank_rep_data.txt'), 'r') as file:
         pathbs = [line.strip() for line in file.readlines()]
     
@@ -51,13 +52,13 @@ def main():
     kinetic_parameters_rep = []
     vval_calc_rep = []
     for i in range(len(pathds)):
+        print(f"<span style='color:purple;'>Running Replica #{i+1}\n</span>")
         data = Import_Kinetic_Data(pathds[i], substrate)
         df_data = data.import_data(columns)
         if len(pathds) == len(pathbs):
             blank = Import_Kinetic_Data(pathbs[i], substrate)
             df_blank = blank.import_data(columns)
             df = pd.DataFrame(df_data.values - df_blank.values)
-            print(df)
         elif 'None' not in pathbs and 1 == len(pathbs):
             blank = Import_Kinetic_Data(pathbs[0], substrate)
             df_blank = blank.import_data(columns)
@@ -67,13 +68,12 @@ def main():
    
         if 'True' in time:
             lin_range = data.gen_lin_range(df, time[1])
-            print(lin_range)
+            print(f'Linear Range: {lin_range}\n', file=sys.stdout, flush=True) 
             step = lin_range[1] - lin_range[0]
             time = [lin_range[0], lin_range[1], step, line_2]
 
     
         vvalues_all = data.gen_vvalues(df, time_min=time[0], time_max=time[1], steps=time[2], v_win=time[3])
-        print(vvalues_all)
 
         sum_value_guess = []
         sum_value_min = []
@@ -123,7 +123,11 @@ def main():
             kinetic_parameters = sol
             print(f"Done Calculating Kinetic Parameters")
 
-        print(kinetic_parameters, s_min, vvalues)
+        print(f'Kinetic Parameters are {kinetic_parameters}\n', file=sys.stdout, flush=True)
+        print(f'Minimum Residual Sum is {s_min}\n', file=sys.stdout, flush=True)
+        vvalues_txt = [float(x) for x in vvalues]
+        form_vv = ['%.4f' % elem for elem in vvalues_txt]
+        print(f'Velocity values are {form_vv}\n', file=sys.stdout, flush=True)
 
         vval_calc = []
         for l in range(len(substrate)):
@@ -132,13 +136,11 @@ def main():
             vval_calc.append(calc)
 
         spx, spy = inputs.linear_hill_xy(vvalues, substrate)
-        print(spx, spy)
 
         poly1d_fn, linregx = inputs.linreg(spx, spy)
 
         with open(os.path.join(work_dir, 'name_data.txt'), 'r') as file:
             name = [line.strip() for line in file.readlines()]
-            print(name)
 
         with open(os.path.join(work_dir, f'{name[0]}_{i}.txt'), 'w') as file:
             file.write(str(kinetic_parameters[0]))
@@ -153,6 +155,7 @@ def main():
         kinetic_parameters_rep.append(kinetic_parameters)
         plot = graph_kinetic_data(os.path.join(work_dir, f"{name[0]}_{i}"), substrate, vvalues, vval_calc, kinetic_parameters, 0)
         plot.with_inset(spx, spy, linregx, poly1d_fn)
+    print(f"<span style='color:purple;'>Done computing replicas\n</span>")
     vval_sub = []
     vval_calc_sub = []
     for j in range(len(substrate)):
@@ -163,12 +166,10 @@ def main():
         vval_sub.append(vv_sub_temp)
         vval_calc_sub.append(vv_calc_temp)
     kinetic_parameters_sub = []
-    print(kinetic_parameters_rep)
     for m in range(3):
         kp_temp = []
         kp_temp.extend(float(kp_sub[m]) for kp_sub in kinetic_parameters_rep)
         kinetic_parameters_sub.append(kp_temp)
-    print(kinetic_parameters_sub)
     vval_rep_avg = []
     vval_rep_std = []
     vval_calc_rep_avg = []
@@ -191,7 +192,6 @@ def main():
         kinetic_parameters_avg.append(avg_kp)
         std_kp = np.std(kp)
         kinetic_parameters_std.append(std_kp)
-    print(kinetic_parameters_avg, kinetic_parameters_std)
 
     with open(os.path.join(work_dir, f'{name[0]}.txt'), 'w') as file:
         hill_avg = '%.3f'%(kinetic_parameters_avg[0])
@@ -230,6 +230,14 @@ def main():
         plot_rep.mut_rep(kinetic_parameters_rep)
     else:
         plot_rep.rep_no_inset(vval_rep_avg, vval_calc_rep_avg, vval_rep_std, vval_calc_rep_std)
+        kp_txt = [float(x) for x in kinetic_parameters_avg]
+        form_kp = ['%.3f' % elem for elem in kp_txt]
+        print(f"Avergage Kinetic Parameters: {form_kp}\n", file=sys.stdout, flush=True)
+        kp_std_txt = [float(x) for x in kinetic_parameters_std]
+        form_kp_std = ['%.3f' % elem for elem in kp_std_txt]
+        print(f"Kinetic Parameters Std. Deviation: {form_kp_std}\n", file=sys.stdout, flush=True)
+
+    print("<span style='color:blue;'>Script finished successfully\n</span>")
 
 if __name__ == "__main__":
     main()

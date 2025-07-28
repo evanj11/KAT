@@ -1771,10 +1771,12 @@ class KineticAnalysisTool(QMainWindow):
                        "mutant.txt",
                        "name_data.txt",
                        "data_type.txt",
+                       "path_data.txt",
+                       "sites.txt",
                        "blank_rep_data.txt",
-                       "path_rep_data.txt",
-                       "path_data.txt"
-                       "sites.txt"]
+                       "path_rep_data.txt"
+                        ]
+
         for file in temp_files:
             if os.path.exists(os.path.join(work_dir, file)):
                 os.remove(os.path.join(work_dir, file))

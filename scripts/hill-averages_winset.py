@@ -17,7 +17,7 @@ def find_nearest(array, value):
 def main():
     work_dir = os.environ.get('WORKING_DIR')
     
-    print("Running Hill Kinetic Analysis\n")
+    print("<span style='color:blue;'>Running Hill Kinetic Analysis\n</span>")
     with open(os.path.join(work_dir, 'substrate_data.txt'), 'r') as file:
         lines = [line.strip() for line in file.readlines()]
         line_1 = int(lines[0])
@@ -139,6 +139,7 @@ def main():
 
     plot = graph_kinetic_data(os.path.join(work_dir, name[0]), substrate, vvalues, vval_calc, kinetic_parameters, vv_std)
     plot.with_inset(spx, spy, linregx, poly1d_fn)
+    print("<span style='color:blue;'>Script finished successfully\n</span>")
 
 
 if __name__ == "__main__":

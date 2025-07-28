@@ -46,7 +46,7 @@ def bayesian_bootstrap(sites, s, v, best_params, n_iter=1000):
 def main():
     work_dir = os.environ.get('WORKING_DIR') 
 
-    print("Running KNF Kinetic Analysis\n")
+    print("<span style='color:blue;'>Running Koshland-Nemethey-Filmer Kinetic Analysis\n</span>")
     with open(os.path.join(work_dir, 'substrate_data.txt'), 'r') as file:
         lines = [line.strip() for line in file.readlines()]
         line_1 = int(lines[0])
@@ -160,7 +160,7 @@ def main():
     X = np.array(substrate)
     y = np.array(vvalues)
 
-    kf = KFold(n_splits=5, shuffle=True, random_state=42)
+    kf = KFold(n_splits=10, shuffle=True, random_state=42)
     cv_params = []
     errors = []
 
@@ -335,6 +335,7 @@ def main():
             plot_x.cv_no_inset(cv_calc, refined.x, cv_mean_params)
     else:
         plot.no_inset()
+    print("<span style='color:blue;'>Script finished successfully\n</span>")
 
 
 if __name__ == "__main__":

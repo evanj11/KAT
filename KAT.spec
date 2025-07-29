@@ -1,28 +1,23 @@
 # -*- mode: python ; coding: utf-8 -*-
-from PyInstaller.utils.hooks import collect_submodules
+from PyInstaller.utils.hooks import collect_submodules, collect_dynamic_libs
 
 hiddenimports = (
     collect_submodules('scipy') +
     collect_submodules('sympy') +
     collect_submodules('pandas') +
     collect_submodules('matplotlib') +
-    collect_submodules('scikit-learn')
+    collect_submodules('scikit-learn') +
+    collect_submodules('sklearn')
 )
+
+binaries = collect_dynamic_libs('sklearn')
 
 a = Analysis(
     ['main.py'],
     pathex=[],
-    binaries=[],
+    binaries=binaries,
     datas=[('scripts', './scripts'), ('assets', './assets'), ('run_script.py', 'scripts'), ('.imgs', './.imgs')],
     hiddenimports=hiddenimports,
-    #hiddenimports=['scipy', 'scipy.optimize',
-    #'scipy.special',
-    #'sympy',
-    #'matplotlib',
-    #'mpl_toolkits.axes_grid1',
-    #'mpl_toolkits.axes_grid1.inset_locator',
-    #'pandas',
-    #],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],

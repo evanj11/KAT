@@ -127,7 +127,7 @@ sites in the enzyme.[@monod:1965] These parameters combine to give the following
 Monod-Wyman-Changeux equation:
 
 \begin{equation}
-v = \frac{V_{T}L_{0}(1 + \frac{[S]}{K_{T}}) + V_{R}(1 + \frac{[S]}{K_{R}})}{L_{0}(1 + \frac{[S]}{K_{T}})(1 + \frac{[S]}{K_{R}})}
+v = \frac{V_{T}L_{0}(1 + \frac{[S]}{K_{T}})^n + V_{R}(1 + \frac{[S]}{K_{R}})^n}{L_{0}(1 + \frac{[S]}{K_{T}})^n+(1 + \frac{[S]}{K_{R}})^n}
 \end{equation}
 
 Although the Monod-Wyman-Changeux model accurately predicts the transitions between the T 

@@ -38,7 +38,7 @@ data stored in CSV files.
 
 1. Download the appropriate KAT_{os}.tar.bz2 file from `Releases`
    - [KAT for MacOS](https://github.com/evanj11/KAT/releases/download/v0.1.0-alpha/KAT.dmg)$^\dagger$
-   - [KAT for Windows](https://github.com/evanj11/KAT/releases/download/v0.1.0-alpha/KAT.exe)
+   - [KAT for Windows (under development)](https://github.com/evanj11/KAT/releases/download/v0.1.0-alpha/KAT.exe)$^\ddagger$
 3. Untar the release and the pre-bundled KAT application should be ready for use
 4. On MacOS, use the disk image to install KAT directly to Applications
 
@@ -46,8 +46,16 @@ data stored in CSV files.
 - Those wishing to run KAT outside of a dedicated app can run `python main.py` in the master directory to access the GUI
 - Currently, there is not an option to run the analysis from the command line without the use of the GUI<br />
 
-$^\dagger$ currently only supports Apple Silicon chips (M1 and later)
-
+$^\dagger$ currently only supports Apple Silicon chips (M1 and later)<br />
+$^\ddagger$ currently not working on Windows
+  - For Windows users:
+     
+      ```
+      git clone https://github.com/evanj11/KAT
+      cd KAT
+      pip install -r requirements.txt
+      python main.py
+      ```
 ___
 
 ## Using KAT

@@ -25,13 +25,14 @@ data stored in CSV files.
 
 ### Requirements
 
-- Python 3.9+
+- Python 3.12+
 - PySide6
+- Matplotlib
 - NumPy
+- Pandas
+- Scikit-learn
 - SciPy
 - Sympy
-- Matplotlib
-- Pandas
 
 ### Installation Instructions
 

@@ -166,15 +166,34 @@ def main():
     errors = []
 
     for train_idx, test_idx in kf.split(X):
-        X_train, y_train = X[train_idx], y[train_idx]
-        kf_res = minimize(val.loss, p0, args=(X_train, y_train), bounds=bounds, method='L-BFGS-B')
-        if kf_res.success:
-            cv_params.append(kf_res.x)
-            errors.append(kf_res.fun)
+        X_train, y_train = X[train_idx], y[train_idx] 
+        try:
+            kf_res = differential_evolution(
+                val.loss, 
+                args=(X_train, y_train),
+                bounds=bounds,
+                strategy='best1bin',
+                maxiter=1000,
+                popsize=20,
+                tol=1e-7
+                )
+            kf_ref = minimize(val.loss, kf_res.x, args=(X_train, y_train), bounds=bounds, method='L-BFGS-B', options={
+                'maxiter': 10000,
+                'ftol': 1e-12,    # tighter convergence on function value
+                'gtol': 1e-10,    # tighter gradient convergence
+                'eps': 1e-8       # step size
+                })
+            if kf_res.success and np.isfinite(kf_ref.fun):
+                cv_params.append(kf_res.x)
+                errors.append(kf_res.fun)
+        except (FloatingPointError, ZeroDivisionError, ValueError) as e:
+            continue
     cv_mean_params = np.mean(cv_params, axis=0)
     errors_mean = np.mean(errors, axis=0)
-    print(f"Params = {cv_mean_params}", file=sys.stdout, flush=True)
-    print(f"RSS = {errors_mean}", file=sys.stdout, flush=True)
+    errors_sum = np.sum(errors, axis=0)
+    print(f"Params = {cv_mean_params}\n", file=sys.stdout, flush=True)
+    print(f"RSS CV mean = {errors_mean}\n", file=sys.stdout, flush=True)
+    print(f"RSS CV sum = {errors_sum}", file=sys.stdout, flush=True)
 
     multi_start_result = None
     multi_start_loss = np.inf
@@ -214,7 +233,7 @@ def main():
     aic_diff = abs(aic_bf - aic_kf)
 
     bic_bf = n * math.log(refined.fun / n) + 6 * math.log(n)
-    bic_kf = n * math.log(errors_mean / n) + 6 * math.log(n)
+    bic_kf = n * math.log(errors_sum / n) + 6 * math.log(n)
     bic_diff = bic_bf - bic_kf
     print(f'BIC results = {bic_diff}\n', file=sys.stdout, flush=True)
     if bic_diff < 0:
@@ -328,14 +347,9 @@ def main():
 
     plot = graph_kinetic_data(os.path.join(work_dir, file_name[0]), substrate, vvalues, bf_calc, kinetic_parameters, vv_std)
     if len(substrate) < 30:
-        if 'False' in within_ci:
-            plot.cv_no_inset(cv_calc, refined.x, cv_mean_params)
-            plot_x = graph_kinetic_data(os.path.join(work_dir, f'{file_name[0]}_no_cv'), substrate, vvalues, bf_calc, refined.x, vv_std)
-            plot_x.no_inset()
-        else:
-            plot.no_inset()
-            plot_x = graph_kinetic_data(os.path.join(work_dir, f'{file_name[0]}_with_cv'), substrate, vvalues, bf_calc, kinetic_parameters, vv_std)
-            plot_x.cv_no_inset(cv_calc, refined.x, cv_mean_params)
+        plot.no_inset()
+        plot_x = graph_kinetic_data(os.path.join(work_dir, f'{file_name[0]}_with_cv'), substrate, vvalues, bf_calc, kinetic_parameters, vv_std)
+        plot_x.cv_no_inset(cv_calc, refined.x, cv_mean_params)
     else:
         plot.no_inset()
     print("<span style='color:blue;'>Script finished successfully\n</span>")

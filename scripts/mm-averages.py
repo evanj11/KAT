@@ -58,7 +58,7 @@ def main():
         print(f'Linear Range = {lin_range}\n', file=sys.stdout, flush=True)
         step = lin_range[1] - lin_range[0]
         time = [lin_range[0], lin_range[1], step, line_2]
-        if v_win < step:
+        if time[3] < step:
             print('Warning: linear range is too small', file=sys.stdout, flush=True)
 
 

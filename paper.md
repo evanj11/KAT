@@ -23,19 +23,19 @@ bibliography: paper.bib
 
 # Summary
 
-When studying previously unknown or uncharacterized enzymes, kinetics serves as the basis
-for understanding the key properties of the enzyme. These properties can give 
-rise to vital information regarding binding affinity of substrate, energetics or 
-speed of the reaction, and even potential allosteric effects within the enzyme 
-itself. These parameters often help guide novel therapeutic discovery.
-Often, kinetic assays are the simplest way to begin to ascertain key
-details about the function of a given enzyme, allowing properties to be compared 
-between wild-type and mutant enzymes. Currently, kinetic data is processed in a 
-concerted, step-wise fashion that allows it to be swiftly automated and fitted 
-to a number of kinetics equations, a necessary step for understanding novel enzymes. 
-A fully-functional GUI that accepts raw data and outputs both kinetic parameters 
-and a graph of the fit not only significantly accelerates data analysis, but also 
-guarantees the same treatment of data across replicas and experiments.
+Kinetics serves as the basis for understanding the key properties of the enzyme. 
+These apparent properties can give vital information regarding interactions with
+substrate, energetics or speed of the reaction, and potential allosteric effects.
+These parameters often help guide novel therapeutic discovery and development.
+Often, kinetic assays are the simplest way to ascertain these key details of 
+function, allowing properties to be compared between homologous and mutant enzymes. 
+Kinetic data processing can be swiftly automated and fitted to a number of kinetic 
+models, a necessary step for understanding enzyme mechanisms. A fully-functional 
+GUI that accepts raw data and outputs both kinetic parameters and a graph of the 
+fit not only significantly accelerates data analysis, but also readily normalizes
+treatment of data across replicas and experiments. The accessibility of this GUI 
+can also facilitate more thorough examination of kinetic models, potentailly revealing
+previously overlooked features.
 
 
 # Statement of need
@@ -43,42 +43,43 @@ guarantees the same treatment of data across replicas and experiments.
 `KAT` is a toolkit dedicated to parsing both fluorescent and absorbance kinetic 
 data and fitting the data to several classical (Michaelis-Menten and Hill)
 [@johnson:2011; @goutelle:2008] and complex (Monod-Wyman-Changeux and Koshland-Nemethy-Filmer)
-[@monod:1965; @koshland:1966] models. Each of these models can also be used to analyze either
-replicate data or data arising from several mutations. These replica fitting
-functions output either averages and standard deviations for each kinetic 
-parameter or side-by-side analysis for mutant data sets. The Python-based GUI
-allows for simple inputting of necessary data: the CSV file with fluorescent or
+[@monod:1965; @koshland:1966] models. A Python-based GUI
+allows for simple input of necessary data: CSV file with fluorescence or
 absorbance data, the substrate information (number of substrate concentrations, 
-dilution factor, and maximum concentration), and the window within which to 
-calculate the velocity data. There is a built-in function to auto calculate the
-linear range of the assay data, which is a necessary parameter for many kinetic
-models. This is calculated through analysis of subsequent slope values and only
-beginning data analysis once the difference in slopes is less than 5% on average.
+dilution factor, and maximum concentration), and a time window within which to 
+calculate the velocity data. A built-in function to automatically calculates the
+linear range of the assay data, which is a necessary parameter for many steady-state
+models. This is calculated through analysis of differences in slope values less than 5% 
+on average, weighted based on substrate concentration.
 Once the user has provided the necessary data, s/he can easily fit the data to 
 multiple models, allowing for the comparison of fits and kinetic parameters.
+Each of these models can also be used to analyze either
+replicate data or data arising from several mutations. These replica fitting
+functions output either averages and standard deviations for each kinetic 
+parameter or side-by-side analysis for mutant data sets.
 
 While many other tools effectively fit Michaelis-Menten kinetics to a data set, 
 fewer fit data to the non-linear form of the Hill Equation, which adds the extra
 Hill coefficient parameter. Further, software like EnzFitter do not have complex
 models built-in, requiring the user to input complex algebraic equations by hand.
-[@leatherbarrow:1988] `KAT` already has these models integrated and directly outputs 
-easily-modifiable SVG graphs, as well as typical PNG-formatted graphs. For the 
-classical models, the kinetic parameters are conviently displayed upon completing 
-the calculation, whereas the complex models display each parameter in a pop-up window.
+[@leatherbarrow:1988] `KAT` integrates complex models and directly outputs 
+easily-modifiable SVG graphs, as well as typical PNG-formatted graphs.
 
 `KAT` utilizes both numerical solving (classical models) and optimization (complex
 models) using the lowest residual square sum for the determination of kinetic 
-parameters. For fitting to classical models, a standard 12 substrate concetrations 
-is enough to provide substantial confidence in the model fitting; however, the use 
-of complex models that solve for up to 6 parameters are difficult to fit when using 
+parameters. For fitting to classical models, a standard 12 substrate concentrations 
+is sufficient to provide substantial confidence in the model fitting; however, the use 
+of complex models that solve for up to 6 parameters are challenging to fit when using 
 under ~30 substrate concentrations. Therefore, several statistical techiniques have 
 been implemented within `KAT` to test the confidence interval of the model fit and
-each parameters. Should one parameter fall without these intervals, a warning message 
-is displayed in the GUI citing potential poor confidence. 
+each parameters. Should one parameter fall outside these intervals, a warning message 
+is displayed in the GUI alerting the user to potential poor confidence. 
 
 With an efficient method of analyzing raw enzyme kinetic data using a simple GUI,
 `KAT` will undoubtedly be useful for a wide-range of enzyme types and significantly
-standardize the fitting of data to both classical and complex kinetic models.
+standardize the fitting of data to both classical and complex kinetic models. The free
+and accessible nature of `KAT` empowers non-experts to make use of these informative
+characterization tools for studying enzymes, including in classroom settings. 
 
 # Mathematical Basis
 ## Kinetic Models
@@ -122,7 +123,7 @@ where binding of substrate and catalysis is limited, and a relaxed or "R" state,
 binding and catalysis are accelerated. These additional states each have a *V* and a *K* 
 parameter that govern velocity of catalyis and affinity, respectively. Further, there are
 two additional parameters (for a total of 6): *L~0~*, or the cooperativity coefficient as a ratio
-of the enzyme in the T state vs. the R state, and *N*, or typically the number of allosteric
+of the enzyme in the T state vs. the R state, and *n*, or typically the number of allosteric
 sites in the enzyme.[@monod:1965] These parameters combine to give the following 
 Monod-Wyman-Changeux equation:
 

@@ -1,0 +1,8 @@
+python==3.12
+numpy==1.26
+scipy
+sympy
+matplotlib
+scikit-learn
+pyside6
+pandas

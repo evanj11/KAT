@@ -48,7 +48,7 @@ data stored in CSV files.
 
 $^\dagger$ currently only supports Apple Silicon chips (M1 and later)<br />
 $^\ddagger$ currently not working on Windows
-  - For Windows users:
+  - For Windows and Linux users:
      
       ```
       git clone https://github.com/evanj11/KAT

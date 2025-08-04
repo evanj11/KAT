@@ -37,8 +37,8 @@ data stored in CSV files.
 ### Installation Instructions
 
 1. Download the appropriate KAT_{os}.tar.bz2 file from `Releases`
-   - [KAT for MacOS](https://github.com/evanj11/KAT/releases/download/v0.1.0-alpha/KAT.dmg)$^\dagger$
-   - [KAT for Windows (under development)](https://github.com/evanj11/KAT/releases/download/v0.1.0-alpha/KAT.exe)$^\ddagger$
+   - [KAT for MacOS](https://github.com/evanj11/KAT/releases/download/v1.0.0/KAT.dmg)$^\dagger$
+   - [KAT for Windows (under development)](https://github.com/evanj11/KAT/releases/download/v1.0.0/KAT.exe)$^\ddagger$
 3. Untar the release and the pre-bundled KAT application should be ready for use
 4. On MacOS, use the disk image to install KAT directly to Applications
 

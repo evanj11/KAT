@@ -23,7 +23,7 @@ bibliography: paper.bib
 
 # Summary
 
-Kinetics serves as the basis for understanding the key properties of the enzyme. 
+Kinetics serves as the basis for understanding the key properties of an enzyme. 
 These apparent properties can give vital information regarding interactions with
 substrate, energetics or speed of the reaction, and potential allosteric effects.
 These parameters often help guide novel therapeutic discovery and development.
@@ -40,17 +40,17 @@ previously overlooked features.
 
 # Statement of need
 
-`KAT` is a toolkit dedicated to parsing both fluorescent and absorbance kinetic 
+`KAT` is a toolkit dedicated to parsing both fluorescence and absorbance kinetic 
 data and fitting the data to several classical (Michaelis-Menten and Hill)
 [@johnson:2011; @goutelle:2008] and complex (Monod-Wyman-Changeux and Koshland-Nemethy-Filmer)
 [@monod:1965; @koshland:1966] models. A Python-based GUI
 allows for simple input of necessary data: CSV file with fluorescence or
 absorbance data, the substrate information (number of substrate concentrations, 
 dilution factor, and maximum concentration), and a time window within which to 
-calculate the velocity data. A built-in function to automatically calculates the
+calculate the velocity data. A built-in function automatically calculates the
 linear range of the assay data, which is a necessary parameter for many steady-state
-models. This is calculated through analysis of slope values with variance weighted
-to signal of less than 5% on average, weighted based on substrate concentration.
+models. This is calculated through analysis of slope values less than 5% different on 
+average, with variation weighted by signal strength.
 Once the user has provided the necessary data, s/he can easily fit the data to 
 multiple models, allowing for the comparison of fits and kinetic parameters.
 Each of these models can also be used to analyze either
@@ -62,9 +62,9 @@ While many other tools effectively fit Michaelis-Menten kinetics to a data set,
 fewer fit data to the non-linear form of the Hill Equation, which adds the extra
 Hill coefficient parameter. Further, software like EnzFitter require a license and
 do not have complex models built-in, requiring the user to input complex algebraic 
-equations by hand.[@leatherbarrow:1988] Free software like EKA focus on enzyme inhibition
-along with classical models and serve as a teaching aid with its online-only implementation.
-[@EKA] `KAT` integrates complex models and directly outputs 
+equations by hand.[@leatherbarrow:1988] Free software like EKA focus on enzyme inhibition,
+along with classical models, and serve as a teaching aid with its online-only implementation.
+[@EKA] `KAT` integrates complex models directly and outputs 
 easily-modifiable SVG graphs, as well as typical PNG-formatted graphs.
 
 `KAT` utilizes both numerical solving (classical models) and optimization (complex
@@ -74,7 +74,7 @@ is sufficient to provide substantial confidence in the model fitting; however, t
 of complex models that solve for up to 6 parameters are challenging to fit when using 
 under ~30 substrate concentrations. Therefore, several statistical techiniques have 
 been implemented within `KAT` to test the confidence interval of the model fit and
-each parameters. Should one parameter fall outside these intervals, a warning message 
+each parameter. Should one parameter fall outside these intervals, a warning message 
 is displayed in the GUI alerting the user to potential poor confidence. 
 
 With an efficient method of analyzing raw enzyme kinetic data using a simple GUI,
@@ -98,7 +98,7 @@ E + S \longleftrightarrow ES \longrightarrow E + P
 
 where E is the enzyme, S is the substrate, and P is the product formed.
 After rearranging for the rate-constants that govern each transition, one solves for the 
-complete Michaelis-Menten equation, where [S] is the substrate concentration and ~v~ is the 
+complete Michaelis-Menten equation, where [S] is the substrate concentration and *v* is the 
 initial steady-state velocity.
 
 \begin{equation}
@@ -122,7 +122,7 @@ v = \frac{V_{max}[S]^n}{K_{M}^n+[S]^n}
 While the Michaelis-Menten and Hill  models often explain the majority of enzymes, the Hill 
 equation in particular is limited to cooperativity within the enzyme, though allostery
 can also impact the catalysis steps in addition to cooperative substrate interactions.
-Monod, Wyman, and Changeux further expanded upon the equation and introduced a two stages for 
+Monod, Wyman, and Changeux further expanded upon the equation and introduced two stages for 
 an allosterically-regulated enzyme: a tensed or "T" state, 
 where binding of substrate and catalysis is limited, and a relaxed or "R" state, where both
 are accelerated. These additional states each have a *V* and a *K* 
@@ -142,7 +142,7 @@ where part of the enzyme cannot exist in both states at once. Since not all enzy
 a complete transition from T to R states at once, Koshland, Nemethy, and Filmer developed a 
 model that accounts for enzymes that exist in states T and R simultaneously by introducing a 
 $\gamma$ term. This term provides the basis for cooperativity in the enzyme. Additionally,
-the Koshland-Nemethy-Filmer model utilizes a term for each acitve site of the enzyme (denoted
+the Koshland-Nemethy-Filmer model utilizes a term for each active site of the enzyme (denoted
 as *i* here).[@koshland:1966] Upon summing all possible enzyme states (from unbound to bound) 
 in each active site, *i*:
 
@@ -151,8 +151,7 @@ v = \frac{E_{total}\sum_{i=0}^{j} k_{i} \binom{j}{i} (\frac{[S]}{K_{d}})^i}{\sum
 \end{equation}
 
 where *j* is the total number of active sites, *E~total~* can be built into a *V~max~* term,
-and $k_{i} = k_{basal} + (V_{max} - k_{basal})(\frac{i}{j})^\gamma$. An underlying assumption
-for this model is that the number of active sites is known prior to analysis.
+and $k_{i} = k_{basal} + (V_{max} - k_{basal})(\frac{i}{j})^\gamma$.
 
 Due to the large number 
 of parameters, these complex equations are difficult to assess the confidence of fit given an 

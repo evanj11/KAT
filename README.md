@@ -43,8 +43,7 @@ data stored in CSV files.
 4. On MacOS, use the disk image to install KAT directly to Applications
 
 - Anyone desiring to make changes to the either the GUI or analysis scripts can rebundle the app directly using `pyinstaller KAT.spec`
-- Those wishing to run KAT outside of a dedicated app can run `python main.py` in the master directory to access the GUI
-- Currently, there is not an option to run the analysis from the command line without the use of the GUI<br />
+- Those wishing to run KAT outside of a dedicated app can run `python main.py` in the master directory to access the GUI<br />
 
 $^\dagger$ currently only supports Apple Silicon chips (M1 and later)<br />
 $^\ddagger$ currently not working on Windows
@@ -57,6 +56,11 @@ $^\ddagger$ currently not working on Windows
       python main.py
       ```
 ___
+
+To run `KAT` outside of the GUI, use this command:
+
+    python scripts/kat_cmd.py
+    
 
 ## Using KAT
 

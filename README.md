@@ -56,13 +56,10 @@ $^\ddagger$ currently not working on Windows
       python main.py
       ```
 ___
-
-To run `KAT` outside of the GUI, use this command:
-
-    python scripts/kat_cmd.py
     
-
 ## Using KAT
+
+### Running through the GUI
 
 Once `KAT` is installed, operating was designed to be as straightforward as possible:
 
@@ -82,12 +79,49 @@ Once `KAT` is installed, operating was designed to be as straightforward as poss
 6. Enter information about the substrate: number of dilutions, dilution factor, and maximum concentration
 7. Enter time information, mainly the window with which to compute slopes (default is 10)
    - if you desire, uncheck the `Auto Calculate Linear Range` button to manually select linear range of raw data
-8. Finally, select your model it will run!
+8. Finally, select the model you want to run!
 9. You can now open the graph and kinetic parameters by selecting `Display Graph and Output Values`
+
+### Running through the terminal
+
+If you do not want to use the GUI or already have the velocity information, `KAT` can be run through the command line:
+
+    python scripts/kat_cmd.py
+
+Running 
+  ```
+  python scripts/kat_cmd.py --help
+  ```
+will open the help menu where all command-line arguments can be listed. The required arguments are:
+  1. -s/--substrate = either a list or file containing substrate concentrations or the number of substrate concentrations, the dilution factor, and the maximum substrate concentration
+     - if the later is supplied, use the --calc-sub-dil flag to automatically generate the substrate concentrations from the dilution information provided
+  2. -v/--velocity = either a list or file containing the velocities at each substrate concentration
+  3. -m/--model = the chosen kinetic model to run chosen from `mm` (*M*ichaelis-*M*enten), `hill` (Hill Kinetics), `mwc` (*M*onod-*W*yman-*C*hangeux), or `knf` (*K*oshland-*N*emethy-*F*ilmer)
+     - if `knf` model chosen, the --sites flag must be used to specify the number of catalytic pockets in the enzyme
+  5. -o/--output = the output filename 
 ___
+### Example Usage of Command Line KAT
+
+If providing a list of substrate and velocity values and computing Michaelis-Menten Kinetics:
+  ```
+  python scripts/kat_cmd.py -s 10 20 35 50 65 80 100 -v 0.0566 0.085 0.1285 0.1478 0.1662 0.1774 0.1799 -m mm
+  ```
+
+If providing files for substrate and velocity data:
+  ```
+  python scripts/kat_cmd.py -s substrate.txt -v velocities.txt -m knf --calc-sub-dil --sites 2
+  ```
+and substrate.txt looks like:
+  ```
+  7     #number of dilutions
+  2     #dilution factor
+  100   #maximum substrate value
+  ```
+
 ## Testing
 
 Simulated enzyme data is provided in the `tests` folder, along with information regarding substrate concentrations.
 Simply download the CSV file, then start KAT, following the steps above. 
-The file named `important_information.txt` in the `tests` folder contains information regarding the substrate concentrations.
+The file named `important_information.txt` in the `tests` folder contains information regarding the substrate concentrations.<br />
+
 

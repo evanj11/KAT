@@ -36,17 +36,17 @@ data stored in CSV files.
 
 ### Installation Instructions
 
-1. Download the appropriate KAT_{os}.tar.bz2 file from `Releases`
+1. Download the appropriate installer file from `Releases`
    - [KAT for MacOS](https://github.com/evanj11/KAT/releases/download/v1.0.0/KAT.dmg)$^\dagger$
    - [KAT for Windows](https://github.com/evanj11/KAT/releases/download/v1.0.0/Kinetic.Analysis.Toolkit-0.0.1.msi)
-3. Untar the release and the pre-bundled KAT application should be ready for use
-4. On MacOS, use the disk image to install KAT directly to Applications
+2. On MacOS, use the disk image to install KAT directly to Applications
+3. On Windows, proceed through the MSI instructions
 
 - Anyone desiring to make changes to the either the GUI or analysis scripts can rebundle the app directly using `pyinstaller KAT.spec`
 - Those wishing to run KAT outside of a dedicated app can run `python main.py` in the master directory to access the GUI<br />
 
 $^\dagger$ currently only supports Apple Silicon chips (M1 and later)<br />
-  - For Windows and Linux users:
+  - For Linux users:
      
       ```
       git clone https://github.com/evanj11/KAT

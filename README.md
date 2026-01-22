@@ -38,7 +38,7 @@ data stored in CSV files.
 
 1. Download the appropriate KAT_{os}.tar.bz2 file from `Releases`
    - [KAT for MacOS](https://github.com/evanj11/KAT/releases/download/v1.0.0/KAT.dmg)$^\dagger$
-   - [KAT for Windows (under development)](https://github.com/evanj11/KAT/releases/download/v1.0.0/Kinetic.Analysis.Toolkit-0.0.1.msi)
+   - [KAT for Windows](https://github.com/evanj11/KAT/releases/download/v1.0.0/Kinetic.Analysis.Toolkit-0.0.1.msi)
 3. Untar the release and the pre-bundled KAT application should be ready for use
 4. On MacOS, use the disk image to install KAT directly to Applications
 
